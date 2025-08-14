@@ -1,0 +1,367 @@
+@import url('https://fonts.googleapis.com/css?family=Niconne&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Teko:300,400&display=swap');
+
+a {
+  color: #fff !important;
+}
+
+p {
+  margin: 0;
+}
+
+section {
+  padding: 60px 0;
+}
+
+.btn {
+  width: 100px;
+  padding: 10px 0!important;
+  border: 1px solid #c69963;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, .3), transparent);
+  transition: all 650ms;
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+.home {
+  width: 100%;  
+  height: 100vh;
+  background: linear-gradient(#00050ac2, #0c0b0be7), url(images/breads.jpg) center no-repeat;
+  background-size: cover;
+  position: relative;    
+}
+
+.home > .container {
+  position: relative;
+  height: 100%;
+  padding: 0;  
+}
+
+.home .navbar-brand {
+  position: absolute;
+  width: 100%;
+  max-width: 135px;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: opacity 650ms;
+}
+
+.home .navbar-brand:hover {
+  opacity: 0.8;
+}
+
+.home .hamburguer-menu {
+  position: fixed;
+  top: 25px;
+  right: 15px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  background-color: #101D2C;
+  border-radius: 4px;
+  cursor: pointer;
+  z-index: 999;
+}
+
+.home .hamburguer-menu i {
+  font-size: 30px;
+  color: rgba(198, 153, 99, .7);
+  margin: auto;
+}
+
+.home .hamburguer-menu .fa-times {
+  display: none;
+}
+
+.home .hamburguer-menu .fa-times.open {
+  display: block;
+}
+
+.home .hamburguer-menu .fa-bars.open {
+  display: none;
+}
+
+.home .nav-list {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  list-style: none;
+  background-color: #101D2C;
+  z-index: 900;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity 650ms;
+}
+
+.home .nav-list.open {
+  opacity: 1;
+  transform: scale(1)
+}
+
+.home .hero-text {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -45%);
+  text-align: center;
+}
+
+.home .hero-text h2 {
+  font-family: "Niconne", cursive;
+  color: #c69963
+}
+
+/* About */
+.about .section-heading h4 {
+  text-transform: uppercase;
+  color: #101D2C;
+  line-height: 0;
+  font-family: 'Teko', sans-serif;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+.about .section-heading h2 {
+  font-family: 'Niconne', cursive;
+  color: #c69963
+}
+
+.about .btn {
+  width: 150px;
+  color: #c69963 !important;
+  transition: background-color 650ms;
+}
+
+.about .btn:hover {
+  color: #fff !important;
+  background-color: #c69963;
+}
+
+.info {
+  background-color: #000;  
+  overflow-x: hidden;
+}
+
+.info .shop-info i {
+  color: #c69963;
+  font-size: 50px;
+}
+
+.info .shop-info h2 {
+  font-family: 'Teko', sans-serif;
+  font-size: 25px;
+  font-weight: 300;
+  text-transform: uppercase;
+}
+
+.info .shop-info p, 
+.info .shop-info address {
+  color: rgba(255, 255, 255, .5);  
+}
+
+hr {
+  border-top: 1px solid rgba(255, 255, 255, .5)
+}
+
+.menu-tasty .section-heading h2 {
+  font-family: "Niconne", cursive;
+  color: #c69963
+}
+
+.menu-tasty .point-right, .point-left {
+  position: relative;
+  background: #fff;
+  display: flex
+}
+
+.menu-tasty .point-right::before, .point-left::before {
+  content: "";
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  background-color: inherit;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  z-index: 1;
+}
+
+.menu-tasty .menu-item-desc {
+  padding: 50px 10px;
+  color: #212529;
+  margin: auto
+}
+
+.menu-tasty .menu-item-desc h6 {
+  color: #c69963;
+  font-size: 20px;  
+}
+
+.menu-tasty .menu-item-desc h2 {
+  color: #101d2c;  
+  font-size: 30px;
+  letter-spacing: 1px;
+  font-family: 'Teko', sans-serif;
+  font-weight: 300;
+}
+
+.chef .section-heading h4 {
+  text-transform: uppercase;
+  color: #101D2C;
+  line-height: 0;
+  font-family: 'Teko', sans-serif;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+.chef .section-heading h2 {
+  font-family: 'Niconne', cursive;
+  color: #c69963
+}
+
+.chef .card-body h2 {
+  font-size: 25px;
+  letter-spacing: 1px;
+  font-family: 'Teko', sans-serif;
+  font-weight: 300;
+}
+
+.chef .card-body h6 {
+  font-size: 16px;
+  color: #c69963
+}
+
+footer {
+  background-color: #000;
+  color: #c69963
+}
+
+@media (min-width: 576px) {
+  .navbar-brand {
+    max-width: 150px;    
+  }
+
+  .hamburguer-menu {
+    top: 35px;
+    right: 25px;
+  }
+
+  .menu-tasty .point-right::before, 
+  .menu-tasty .point-left::before {
+    display: none;
+  }
+
+  .menu-tasty .menu-item-desc {
+    padding: 50px 20px;
+  }
+}
+
+@media (min-width: 768px) {
+  .btn {
+    width: 150px
+  }
+}
+
+@media (min-width: 992px) {
+  .home > .container {
+    padding: 0 15px;
+  }
+
+  .home .hamburguer-menu {
+    display: none;
+  }
+
+  .home .navbar-brand {
+    position: initial;
+    transform: initial;
+  }
+
+  .home .nav-list {
+    position: initial;
+    width: initial;
+    height: initial;
+    background-color: initial;
+    flex-direction: row;
+    opacity: initial;
+    transform: initial;
+    transition: initial;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-item {
+    margin: 0 30px;
+  }
+
+  .nav-item:last-child {
+    margin-right: 0;
+  }
+
+  .nav-link {
+    position: relative;
+    padding: 0;
+  }
+
+  .nav-link::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    background-color: #c69963;
+    width: 100%;
+    height: 2px;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 300ms;
+  }
+
+  .nav-link:hover::before {
+    transform: scaleX(1);
+  }
+}
+
+@media (min-width: 1200px) {
+  .menu-tasty .point-right::before, 
+  .menu-tasty .point-left::before {
+    display: block;
+    top: 50%;
+    left: initial;
+    transform: translate(0, -50%) rotate(45deg)
+  }
+
+  .menu-tasty .point-right::before {
+    left: -12px;
+  }
+
+  .menu-tasty .point-left::before {
+    right: -12px
+  }
+
+  .menu-tasty .menu-item-desc p {
+    display: none;
+  }
+
+  .menu-tasty .menu-item-desc .btn {
+    color: #fff !important;
+    background-color: #c69963
+  }
+}

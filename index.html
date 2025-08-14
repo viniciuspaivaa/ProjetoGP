@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+  <title>Padaria Delicioso Pão</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- AOS Animation -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <!-- CSS Personalizado -->
+  <link rel="stylesheet" href="styles.css">  
+</head>
+
+<body>
+  
+  <!-- Cabeçalho -->
+  <header class="home" id="home">
+    <div class="container">
+      <!-- Menu Hambúrguer -->
+      <div class="hamburguer-menu">
+        <i class="fas fa-bars toggle"></i>
+        <i class="fas fa-times toggle"></i>
+      </div>
+      <nav class="d-flex align-items-center justify-content-center justify-content-lg-between">
+        <a class="navbar-brand" href="index.html">
+          <img class="img-fluid" src="images/padaria_fundo_marrom.png" width="240px" alt="Logo Brød Padaria">
+        </a>
+        <ul class="nav-list text-center p-0">
+          <li class="nav-item">
+            <a class="nav-link" href="#home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#about">Sobre</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#menu">Cardápio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#chefs">Nossa Equipe</a>
+          </li>
+        </ul>
+      </nav>
+      <div class="hero-text w-100 text-white px-2 px-sm-0">
+        <h2 class="display-4">Bem-vindo</h2>
+        <p class="lead mb-4">Produtos de padaria como você nunca viu antes!</p>
+        <a class="btn" href="#">Explorar</a>
+        <a class="btn ms-3" href="#">Encontrar uma loja</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Seção Sobre -->
+    <section id="about" class="about">
+      <div class="container">
+        <div class="row align-items-lg-center">
+          <div class="col-12 col-md-6 text-center text-md-start" data-aos="fade-right">
+            <div class="section-heading mb-3">
+              <h4>Descubra</h4>
+              <h2 class="display-4">Nossa História</h2>
+            </div>
+            <p>Fundada em 2002 na cidade de Ipatinga, a Padaria Delicioso Pão nasceu do sonho de uma família simples, mas determinada, de transformar a paixão pela panificação em um negócio de sucesso. Tudo começou em um pequeno ponto na Avenida Limões, onde, ainda de madrugada, os primeiros pães eram assados no forno à lenha, exalando um aroma irresistível que logo se espalhou pelo bairro.
+
+Com muito trabalho, dedicação e receitas caseiras cheias de afeto, a Delicioso Pão rapidamente se tornou um ponto de referência para os moradores da região. Os clientes não vinham apenas para comprar pão vinham para conversar, tomar um café fresco e se sentirem em casa. A padaria se transformou em um verdadeiro ponto de encontro da comunidade.
+
+Ao longo dos anos, o espaço cresceu, o cardápio foi ampliado e novas tecnologias foram adotadas, mas sem jamais perder a essência artesanal que conquistou seus primeiros clientes. Foram incluídos bolos feitos no dia, doces tradicionais da culinária mineira, sanduíches especiais, tortas salgadas, cafés gourmet e uma linha de produtos integrais e sem glúten, atendendo aos mais diversos gostos e necessidades.
+
+A segunda geração da família, que hoje administra a padaria, trouxe uma visão moderna ao negócio, implementando melhorias na gestão, atendimento e comunicação com o público, como encomendas online, delivery e presença nas redes sociais. Apesar da modernização, a Delicioso Pão continua fiel às raízes que a fizeram crescer: qualidade, carinho e respeito pelo cliente.
+
+Hoje, a Padaria Delicioso Pão é reconhecida em toda Ipatinga como um símbolo de tradição, sabor e acolhimento. E todos os dias, ao abrir suas portas, ela mantém viva a mesma missão de quando tudo começou na Avenida Limões: oferecer pães e produtos que alimentam o corpo e aquecem o coração.</p>
+            <a class="btn mt-4 mb-5 mb-md-0" href="#">Saiba mais</a>
+          </div>
+          <div class="col-12 col-md-6" data-aos="fade-left">
+            <img class="img-fluid" src="images/about-img.jpg" alt="Imagem sobre a padaria">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção de Informações -->
+    <section class="info" id="info">
+      <div class="container">
+        <div class="row text-center text-white">
+          <div class="col-12 col-md-4 mb-4 mb-md-0" data-aos="fade-up">
+            <div class="shop-info">
+              <i class="far fa-clock mb-3"></i>
+              <h2 class="mb-4">Horário de Funcionamento</h2>
+              <p>Seg a Sex: 8:00 - 18:00</p>
+              <p>Sáb e Dom: 8:00 - 13:00</p>
+            </div>
+          </div>
+          <div class="col-12 col-md-4 mb-4 mb-md-0" data-aos="fade-down">
+            <div class="shop-info">
+              <i class="fas fa-map-marked-alt mb-3"></i>
+              <h2 class="mb-4">Nossa Localização</h2>
+              <address>
+                Avenida Limões <br>
+                Ipatinga, 145
+              </address>
+            </div>
+          </div>
+          <div class="col-12 col-md-4 mb-4 mb-md-0" data-aos="fade-right">
+            <div class="shop-info">
+              <i class="fas fa-mobile-alt mb-3"></i>
+              <h2 class="mb-4">Entre em Contato</h2>
+              <p>Telefone: (31) 98765-4534</p>
+              <p>Email: padariadeliciopao@gmail.com</p>
+            </div>
+          </div>
+        </div>
+        <hr class="mt-5">
+      </div>
+
+      <!-- Seção do Cardápio -->
+      <div class="menu-tasty container-fluid p-0" id="menu">
+        <div class="section-heading my-5 text-center">
+          <h4 class="text-white">Nossas Delícias</h4>
+          <h2 class="display-4">Cardápio</h2>
+        </div>
+
+        <div class="row g-0">
+
+          <div class="col-12 col-sm-6 col-xl-2 order-sm-0 order-xl-0">
+            <img class="img-fluid" src="images/menu-item-1.jpg" alt="Item do cardápio 1">
+          </div>
+          <div class="col-12 col-sm-6 col-xl-2 order-sm-1 order-xl-1 point-left" data-aos="fade-in">
+            <div class="menu-item-desc">
+              <h6>R$10</h6>
+              <h2>Bolo de Chocolate</h2>
+              <p>Este bolo é incrível! Recomendo para todos.</p>
+              <a href="#" class="btn mt-3 d-none d-xl-block">Saiba mais</a>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6 col-xl-2 order-sm-3 order-xl-2">
+            <img class="img-fluid" src="images/menu-item-2.jpg" alt="Item do cardápio 2">
+          </div>
+          <div class="col-12 col-sm-6 col-xl-2 order-sm-2 order-xl-3 point-left">
+            <div class="menu-item-desc">
+              <h6>R$10</h6>
+              <h2>Delicioso bolo com bomboms</h2>
+              <p>Este bolo é incrível! Recomendo para todos.</p>
+              <a href="#" class="btn mt-3 d-none d-xl-block">Saiba mais</a>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6 col-xl-2 order-sm-4 order-xl-4">
+            <img class="img-fluid" src="images/menu-item-3.jpg" alt="Item do cardápio 3">
+          </div>
+          <div class="col-12 col-sm-6 col-xl-2 order-sm-5 order-xl-5 point-left">
+            <div class="menu-item-desc">
+              <h6>R$10</h6>
+              <h2>Bomboms</h2>
+              <p>Este bolo é incrível! Recomendo para todos.</p>
+              <a href="#" class="btn mt-3 d-none d-xl-block">Saiba mais</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-0">
+
+          <div class="col-12 col-sm-6 col-xl-2 order-sm-1 order-xl-1">
+            <img class="img-fluid" src="images/menu-item-4.jpg" alt="Item do cardápio 4">
+          </div>
+          <div class="col-12 col-sm-6 col-xl-2 order-sm-0 order-xl-0 point-right">
+            <div class="menu-item-desc">
+              <h6>R$10</h6>
+              <h2>Caçarola</h2>
+              <p>Este bolo é incrível! Recomendo para todos.</p>
+              <a href="#" class="btn mt-3 d-none d-xl-block">Saiba mais</a>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6 col-xl-2 order-sm-2 order-xl-3">
+            <img class="img-fluid" src="images/menu-item-5.jpg" alt="Item do cardápio 5">
+          </div>
+          <div class="col-12 col-sm-6 col-xl-2 order-sm-4 order-xl-2 point-right">
+            <div class="menu-item-desc">
+              <h6>R$10</h6>
+              <h2>Bolo de morango</h2>
+              <p>Este bolo é incrível! Recomendo para todos.</p>
+              <a href="#" class="btn mt-3 d-none d-xl-block">Saiba mais</a>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-6 col-xl-2 order-sm-5 order-xl-5">
+            <img class="img-fluid" src="images/menu-item-6.jpg" alt="Item do cardápio 6">
+          </div>
+          <div class="col-12 col-sm-6 col-xl-2 order-sm-4 order-xl-4 point-right">
+            <div class="menu-item-desc">
+              <h6>R$10</h6>
+              <h2>Mini Bolos</h2>
+              <p>Este bolo é incrível! Recomendo para todos.</p>
+              <a href="#" class="btn mt-3 d-none d-xl-block">Saiba mais</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção dos Chefs -->
+    <section class="chef" id="chefs">
+      <div class="container">
+        <div class="section-heading my-5 text-center">
+          <h4>Conheça</h4>
+          <h2 class="display-4">Nossos Chefs</h2>
+        </div>
+
+        <div class="row text-center">
+          <div class="col-12 col-md-4" data-aos="fade-right">
+            <img src="images/chef-1.png" alt="Chef Olivia Logan" class="img-fluid">
+            <div class="card-body">
+              <h2>Olivia Logan</h2>
+              <h6>Especialista em Cupcakes</h6>
+              <p>Olivia é uma incrível chef de confeitaria!</p>
+            </div>
+          </div>
+          <div class="col-12 col-md-4" data-aos="fade-up">
+            <img src="images/chef-2.png" alt="Chef Jessica Lewis" class="img-fluid">
+            <div class="card-body">
+              <h2>Jessica Lewis</h2>
+              <h6>Mestre Padeira</h6>
+              <p>Jessica é uma incrível chef de confeitaria!</p>
+            </div>
+          </div>
+          <div class="col-12 col-md-4" data-aos="fade-left">
+            <img src="images/chef-3.png" alt="Chef James Holt" class="img-fluid">
+            <div class="card-body">
+              <h2>James Holt</h2>
+              <h6>Especialista em Bolos</h6>
+              <p>James é um incrível chef de confeitaria!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer class="text-center py-5">
+      &copy; Padaria 2021
+    </footer>
+  </main>
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <!-- Popper.js -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN" crossorigin="anonymous"></script>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
+  <!-- AOS Animation JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <!-- Scripts Personalizados -->
+  <script src="scripts.js"></script>
+</body>
+</html>
