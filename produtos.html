@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+  <title>Produtos - Padaria Delicioso Pão</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      background: #000;
+    }
+    .produtos-section {
+      min-height: 100vh;
+      padding: 60px 0;
+    }
+    .card-produto {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.15);
+      padding: 32px 24px;
+      margin-bottom: 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 350px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .card-produto img {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 16px;
+      background: #fff;
+      border: #c69963 1px solid;
+      padding: 8px;
+    }
+    .card-produto h2 {
+      font-size: 2rem;
+      color: #101d2c;
+      font-family: 'Teko', sans-serif;
+      margin-bottom: 8px;
+    }
+    .card-produto h6 {
+      color: #c69963;
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+    }
+    .card-produto p {
+      color: #212529;
+      margin-bottom: 8px;
+    }
+    .card-produto .datas {
+      font-size: 0.95rem;
+      color: #555;
+      margin-bottom: 12px;
+    }
+    .card-produto .btn {
+      margin: 4px 0;
+      width: 100%;
+      background: #c69963;
+      color: #fff !important;
+      border: none;
+      font-weight: 500;
+    }
+    .card-produto .btn:focus {
+      outline: 2px solid #101d2c;
+    }
+    .produtos-title {
+      color: #c69963;
+      font-family: 'Niconne', cursive;
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2.5rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header reutilizado -->
+  <header class="home" id="home">
+    <div class="container">
+      <div class="hamburguer-menu">
+        <i class="fas fa-bars toggle"></i>
+        <i class="fas fa-times toggle"></i>
+      </div>
+      <nav class="d-flex align-items-center justify-content-center justify-content-lg-between">
+        <a class="navbar-brand" href="index.html">
+          <img class="img-fluid" src="images/logo_pingpao.png" width="240px" alt="Logo Brød Padaria">
+        </a>
+        <ul class="nav-list text-center p-0">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html#home">Início</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="index.html#about">Sobre</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="produtos.html">Produtos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="index.html#chefs">Nossa Equipe</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="produtos-section">
+      <h1 class="produtos-title">Produtos</h1>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="card-produto" id="card-bolo-chocolate">
+              <img src="images/menu-item-1.jpg" alt="Bolo de Chocolate">
+              <h2>Bolo de Chocolate</h2>
+              <h6>R$10</h6>
+              <p>Este bolo é incrível! Recomendo para todos.</p>
+              <div class="datas">
+                <span>Validade: 25/08/2025</span><br>
+                <span>Fabricação: 20/08/2025</span>
+              </div>
+              <button class="btn" onclick="lerCard('card-bolo-chocolate')"><i class="fas fa-volume-up"></i> Ler texto</button>
+              <button class="btn" disabled><i class="fas fa-video"></i> Vídeo (em breve)</button>
+            </div>
+          </div>
+          <!-- Adicione outros cards de produtos aqui, seguindo o mesmo padrão -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer reutilizado -->
+  <footer class="text-center py-5">
+    &copy; Todos Direitos Reservados - Padaria Pim Pão 2025
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="scripts.js"></script>
+  <script>
+    function lerCard(cardId) {
+      var card = document.getElementById(cardId);
+      var texto = '';
+      var h2 = card.querySelector('h2');
+      var h6 = card.querySelector('h6');
+      var p = card.querySelector('p');
+      var datas = card.querySelector('.datas');
+      if(h2) texto += h2.textContent + '. ';
+      if(h6) texto += h6.textContent + '. ';
+      if(p) texto += p.textContent + '. ';
+      if(datas) texto += datas.textContent;
+      var synth = window.speechSynthesis;
+      var utter = new SpeechSynthesisUtterance(texto);
+      utter.lang = 'pt-BR';
+      synth.speak(utter);
+    }
+  </script>
+</body>
+</html>
