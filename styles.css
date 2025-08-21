@@ -64,6 +64,13 @@ section {
   opacity: 0.8;
 }
 
+.img-fluid {
+  background-color: white;
+  padding: 10px;
+  border-radius: 50%;
+  border: #c69963 0.8px solid;
+}
+
 .home .hamburguer-menu {
   position: fixed;
   top: 25px;
@@ -177,6 +184,8 @@ section {
 .info .shop-info address {
   color: rgba(255, 255, 255, .5);  
 }
+
+
 
 hr {
   border-top: 1px solid rgba(255, 255, 255, .5)
