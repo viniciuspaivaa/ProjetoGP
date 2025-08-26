@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-  <title>Padaria Delicioso Pão</title>
+  <title>Padaria Ping Pão</title>
 
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
@@ -76,7 +76,7 @@ Acreditamos que todos têm o direito de desfrutar de momentos especiais em nossa
 
 Na Pim Pão, cada cliente importa — e cada detalhe é pensado para que sua experiência seja saborosa, confortável e justa.
 </p>
-            <a class="btn mt-4 mb-5 mb-md-0" href="#">Saiba mais</a>
+            
           </div>
           <div class="col-12 col-md-6" data-aos="fade-left">
             <img class="img-fluid" src="images/about-img.jpg" alt="Imagem sobre a padaria">
@@ -124,14 +124,22 @@ Na Pim Pão, cada cliente importa — e cada detalhe é pensado para que sua exp
           
           <h2 class="display-4">Cardápio</h2>
         </div>
-        <!-- Barra de busca do cardápio -->
+        <!-- Barra de categorias + busca do cardápio -->
         <div class="menu-toolbar container mb-4">
           <div class="menu-toolbar-inner">
-            <input type="search" id="menu-search" class="menu-search-input" placeholder="Pesquisar no cardápio..." aria-label="Pesquisar no cardápio">
-            <button type="button" id="menu-clear" class="menu-btn-clear" aria-label="Limpar pesquisa">Limpar</button>
+            <div class="menu-search-group">
+              <div class="menu-cats-inner" role="tablist" aria-label="Categorias do cardápio">
+                <button type="button" class="menu-cat-btn active" data-cat="doces" role="tab" aria-selected="true">Doces</button>
+                <button type="button" class="menu-cat-btn" data-cat="paes" role="tab" aria-selected="false">Pães</button>
+              </div>
+              <input type="search" id="menu-search" class="menu-search-input" placeholder="Pesquisar no cardápio..." aria-label="Pesquisar no cardápio">
+              <button type="button" id="menu-clear" class="menu-btn-clear" aria-label="Limpar pesquisa">Limpar</button>
+            </div>
           </div>
         </div>
 
+        <!-- Categoria: Doces -->
+        <div id="menu-doces" class="menu-category active" data-cat="doces">
         <div class="row g-0">
 
           <div class="col-12 col-sm-6 col-xl-2 order-sm-0 order-xl-0" data-item="1" data-name="Bolo de Chocolate" data-price="10" data-img="images/menu-item-1.jpg">
@@ -168,7 +176,7 @@ Na Pim Pão, cada cliente importa — e cada detalhe é pensado para que sua exp
           </div>
         </div>
 
-        <div class="row g-0">
+  <div class="row g-0">
 
           <div class="col-12 col-sm-6 col-xl-2 order-sm-1 order-xl-1" data-item="4" data-name="Caçarola" data-price="10" data-img="images/menu-item-4.jpg">
             <img class="img-fluid" src="images/menu-item-4.jpg" alt="Caçarola">
@@ -200,6 +208,81 @@ Na Pim Pão, cada cliente importa — e cada detalhe é pensado para que sua exp
               <h6>R$10</h6>
               <h2>Mini Bolos</h2>
               <p>Este bolo é incrível! Recomendo para todos.</p>
+            </div>
+          </div>
+        </div>
+        </div>
+
+        <!-- Categoria: Pães (placeholders para inserir imagens depois) -->
+        <div id="menu-paes" class="menu-category" data-cat="paes" hidden>
+          <div class="row g-0">
+            <!-- Pão Francês -->
+            <div class="col-12 col-sm-6 col-xl-2 order-sm-0 order-xl-0" data-item="101" data-name="Pão Francês" data-price="5" data-img="images/pão frances.jpg">
+              <img class="img-fluid" src="images/pão frances.jpg" alt="Pão Francês">
+            </div>
+            <div class="col-12 col-sm-6 col-xl-2 order-sm-1 order-xl-1 point-left" data-item="101" data-name="Pão Francês" data-price="5" data-img="images/pão frances.jpg">
+              <div class="menu-item-desc">
+                <h6>R$5</h6>
+                <h2>Pão Francês</h2>
+                <p>Pão tradicional, crocante por fora e macio por dentro. Ideal para o café da manhã.</p>
+              </div>
+            </div>
+            <!-- Pão Italiano -->
+            <div class="col-12 col-sm-6 col-xl-2 order-sm-2 order-xl-2" data-item="102" data-name="Pão Italiano" data-price="8" data-img="images/pão-italiano.jpg">
+              <img class="img-fluid" src="images/pão-italiano.jpg" alt="Pão Italiano">
+            </div>
+            <div class="col-12 col-sm-6 col-xl-2 order-sm-3 order-xl-3 point-left" data-item="102" data-name="Pão Italiano" data-price="8" data-img="images/pão-italiano.jpg">
+              <div class="menu-item-desc">
+                <h6>R$8</h6>
+                <h2>Pão Italiano</h2>
+                <p>Pão de casca grossa e miolo macio, perfeito para bruschettas e antepastos.</p>
+              </div>
+            </div>
+            <!-- Pão Integral -->
+            <div class="col-12 col-sm-6 col-xl-2 order-sm-4 order-xl-4" data-item="103" data-name="Pão Integral" data-price="9" data-img="images/pão integral.webp">
+              <img class="img-fluid" src="images/pão integral.webp" alt="Pão Integral">
+            </div>
+            <div class="col-12 col-sm-6 col-xl-2 order-sm-5 order-xl-5 point-left" data-item="103" data-name="Pão Integral" data-price="9" data-img="images/pão integral.webp">
+              <div class="menu-item-desc">
+                <h6>R$9</h6>
+                <h2>Pão Integral</h2>
+                <p>Pão saudável, rico em fibras, ideal para quem busca uma alimentação equilibrada.</p>
+              </div>
+            </div>
+          </div>
+          <div class="row g-0">
+            <!-- Pão de Queijo -->
+            <div class="col-12 col-sm-6 col-xl-2 order-sm-0 order-xl-0" data-item="104" data-name="Pão de Queijo" data-price="7" data-img="images/pão-de-queijo.jpg">
+              <img class="img-fluid" src="images/pão-de-queijo.jpg" alt="Pão de Queijo">
+            </div>
+            <div class="col-12 col-sm-6 col-xl-2 order-sm-1 order-xl-1 point-right" data-item="104" data-name="Pão de Queijo" data-price="7" data-img="images/pão-de-queijo.jpg">
+              <div class="menu-item-desc">
+                <h6>R$7</h6>
+                <h2>Pão de Queijo</h2>
+                <p>Clássico mineiro, macio e com muito queijo. Perfeito para qualquer hora do dia.</p>
+              </div>
+            </div>
+            <!-- Pão de Forma -->
+            <div class="col-12 col-sm-6 col-xl-2 order-sm-2 order-xl-2" data-item="105" data-name="Pão de Forma" data-price="10" data-img="images/Pão-de-forma.jpg">
+              <img class="img-fluid" src="images/Pão-de-forma.jpg" alt="Pão de Forma">
+            </div>
+            <div class="col-12 col-sm-6 col-xl-2 order-sm-3 order-xl-3 point-right" data-item="105" data-name="Pão de Forma" data-price="10" data-img="images/Pão-de-forma.jpg">
+              <div class="menu-item-desc">
+                <h6>R$10</h6>
+                <h2>Pão de Forma</h2>
+                <p>Fatiado, macio e prático. Ideal para sanduíches e torradas.</p>
+              </div>
+            </div>
+            <!-- Baguete -->
+            <div class="col-12 col-sm-6 col-xl-2 order-sm-4 order-xl-4" data-item="106" data-name="Baguete" data-price="6" data-img="images/baguete.jpg">
+              <img class="img-fluid" src="images/baguete.jpg" alt="Baguete">
+            </div>
+            <div class="col-12 col-sm-6 col-xl-2 order-sm-5 order-xl-5 point-right" data-item="106" data-name="Baguete" data-price="6" data-img="images/baguete.jpg">
+              <div class="menu-item-desc">
+                <h6>R$6</h6>
+                <h2>Baguete</h2>
+                <p>Pão alongado, crocante e leve. Ótimo para acompanhar patês e queijos.</p>
+              </div>
             </div>
           </div>
         </div>
@@ -263,37 +346,5 @@ Na Pim Pão, cada cliente importa — e cada detalhe é pensado para que sua exp
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <!-- Scripts Personalizados -->
   <script src="scripts.js"></script>
-  <button id="daltonic-toggle" aria-label="Ativar modo daltônico" title="modo para daltônicos" style="position:fixed;bottom:24px;right:24px;z-index:9999;background:#fff;color:#101D2C;border:2px solid #c69963;border-radius:50%;width:54px;height:54px;box-shadow:0 2px 8px rgba(0,0,0,0.15);font-size:1.6rem;cursor:pointer;display:flex;align-items:center;justify-content:center;">🌈</button>
-  <script>
-    const btnDaltonic = document.getElementById('daltonic-toggle');
-    btnDaltonic.addEventListener('click', function() {
-      document.body.classList.toggle('daltonic-mode');
-      btnDaltonic.setAttribute('aria-pressed', document.body.classList.contains('daltonic-mode'));
-    });
-  </script>
-  <style>
-    body.daltonic-mode, body.daltonic-mode * {
-      color: #222 !important;
-      background: #f6f6f6 !important;
-      border-color: #222 !important;
-      box-shadow: none !important;
-    }
-    body.daltonic-mode .btn, body.daltonic-mode .btn:focus, body.daltonic-mode .btn:hover {
-      background: #ffe600 !important;
-      color: #222 !important;
-      border: 2px solid #222 !important;
-    }
-    body.daltonic-mode header, body.daltonic-mode nav, body.daltonic-mode .menu-tasty, body.daltonic-mode .about, body.daltonic-mode .info, body.daltonic-mode .chef, body.daltonic-mode footer {
-      background: #f6f6f6 !important;
-    }
-    /* Filtro para deuteranopia (daltonismo vermelho-verde mais comum) */
-    body.daltonic-mode .img-fluid, body.daltonic-mode img {
-      filter: url('https://raw.githubusercontent.com/Altreus/Colorblindly/master/filters/deuteranopia.svg#deuteranopia');
-      filter: contrast(1.1) saturate(1.1) grayscale(0.1) sepia(0.5) hue-rotate(-20deg) !important;
-    }
-    #daltonic-toggle:focus {
-      outline: 3px solid #ffe600;
-    }
-  </style>
 </body>
 </html>
