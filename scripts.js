@@ -467,6 +467,81 @@ $(function () {
   } catch { applyVisionMode('tricromatico'); }
   ensureVisionControl();
 
+  // ====== Acessibilidade: Controle do Leitor de Voz (ícone semelhante ao de visão) ======
+  const voiceKey = 'voice_reader_enabled';
+  function isVoiceEnabled() {
+    try {
+      const v = localStorage.getItem(voiceKey);
+  // Desativado por padrão quando ainda não há preferência salva
+  return v === null ? false : v === '1';
+    } catch { return true; }
+  }
+  function setVoiceEnabled(on) {
+    try { localStorage.setItem(voiceKey, on ? '1' : '0'); } catch {}
+    const btn = document.getElementById('voice-toggle');
+    if (btn) btn.setAttribute('aria-label', `Leitor de voz: ${on ? 'ativado' : 'desativado'}`);
+    const status = document.getElementById('voice-status');
+    if (status) status.textContent = on ? 'Ativado' : 'Desativado';
+    if (!on) { try { window.speechSynthesis.cancel(); } catch {} }
+  }
+  function ensureVoiceControl() {
+    if (document.getElementById('voice-toggle')) return;
+    const wrapper = document.createElement('div');
+    wrapper.id = 'voice-widget';
+    wrapper.innerHTML = `
+      <button id=\"voice-toggle\" title=\"Leitor de voz\" aria-haspopup=\"true\" aria-expanded=\"false\" style=\"position:fixed;bottom:24px;right:90px;z-index:9999;background:#fff;color:#101D2C;border:2px solid #c69963;border-radius:50%;width:54px;height:54px;box-shadow:0 2px 8px rgba(0,0,0,0.15);font-size:1.4rem;cursor:pointer;display:flex;align-items:center;justify-content:center;\">🔊</button>
+      <div id=\"voice-popover\" role=\"dialog\" aria-label=\"Configurações do leitor de voz\" style=\"position:fixed;bottom:86px;right:90px;z-index:9999;background:#ffffff;border:1px solid #c69963;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.18);padding:12px 12px;min-width:240px;display:none;\">
+        <h4 style=\"margin:4px 0 8px 0;font-size:1rem;color:#101D2C;\">Leitor de voz</h4>
+        <p id=\"voice-desc\" style=\"margin:0 0 8px 0;font-size:.9rem;color:#333;\">Ative a fala por voz ao navegar. Não afeta leitores de tela.</p>
+        <p style=\"margin:0 0 10px 0;\">Status: <strong id=\"voice-status\"></strong></p>
+        <div style=\"display:flex;gap:8px;\">
+          <button id=\"voice-enable\" class=\"menu-btn-sm\" style=\"flex:1;\">Ativar</button>
+          <button id=\"voice-disable\" class=\"menu-btn-sm\" style=\"flex:1;\">Desativar</button>
+          <button id=\"voice-close\" class=\"menu-btn-sm\" style=\"flex:1;\">Fechar</button>
+        </div>
+      </div>`;
+    document.body.appendChild(wrapper);
+
+    const toggle = document.getElementById('voice-toggle');
+    const pop = document.getElementById('voice-popover');
+    const enableBtn = document.getElementById('voice-enable');
+    const disableBtn = document.getElementById('voice-disable');
+    const closeBtn = document.getElementById('voice-close');
+
+    // Inicializa estado visual/aria
+    setVoiceEnabled(isVoiceEnabled());
+
+    toggle.addEventListener('click', () => {
+      const show = pop.style.display !== 'block';
+      pop.style.display = show ? 'block' : 'none';
+      toggle.setAttribute('aria-expanded', show);
+      if (show) enableBtn.focus();
+    });
+    enableBtn.addEventListener('click', () => {
+      setVoiceEnabled(true);
+      // Apresentação do guia Ronaldo ao ativar
+      announce('Leitor de voz ativado.');
+      speakText('Olá, eu sou o Ronaldo, seu guia de voz. Vou ler instruções e conteúdos para facilitar sua navegação. Para parar uma fala, pressione ESC.');
+    });
+    disableBtn.addEventListener('click', () => {
+      setVoiceEnabled(false);
+      announce('Leitor de voz desativado.');
+      // speakText ficará silenciado após desativar
+    });
+    closeBtn.addEventListener('click', () => {
+      pop.style.display = 'none';
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { pop.style.display = 'none'; toggle.setAttribute('aria-expanded', 'false'); } });
+    document.addEventListener('click', (e) => {
+      if (!pop.contains(e.target) && e.target !== toggle) {
+        pop.style.display = 'none'; toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+  // Inicializar controle do leitor de voz
+  ensureVoiceControl();
+
   // ====== Acessibilidade: Leitura automática dos Chefs (Tab + Enter) ======
   function ensureLiveRegion() {
     let live = document.getElementById('sr-live-region');
@@ -496,6 +571,8 @@ $(function () {
   function speakText(text) {
     const synth = window.speechSynthesis;
     if (!synth) { return; }
+  // Respeita o estado do leitor de voz
+  if (!isVoiceEnabled()) { return; }
     try { synth.cancel(); } catch {}
     const u = new SpeechSynthesisUtterance(text);
     u.lang = 'pt-BR';
