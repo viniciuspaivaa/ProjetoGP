@@ -5,6 +5,28 @@ a {
   color: #fff !important;
 }
 
+/* Link de pulo acessível para a página de produtos */
+.skip-to-products {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.skip-to-products:focus {
+  left: 50%;
+  transform: translateX(-50%);
+  position: static;
+  display: inline-block;
+  margin-top: 8px;
+  padding: 8px 14px;
+  border-radius: 6px;
+  background: #c69963;
+  color: #101D2C !important;
+  outline: 3px solid #ffe600;
+}
+
 p {
   margin: 0;
 }
@@ -188,6 +210,13 @@ section {
   font-size: 25px;
   font-weight: 300;
   text-transform: uppercase;
+}
+
+/* Foco visível para títulos focáveis na seção de informações */
+.info .shop-info h2:focus {
+  outline: 3px solid #ffe600;
+  outline-offset: 4px;
+  border-radius: 4px;
 }
 
 .info .shop-info p, 

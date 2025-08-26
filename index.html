@@ -33,19 +33,23 @@
         </a>
         <ul class="nav-list text-center p-0">
           <li class="nav-item">
-            <a class="nav-link" href="#home">Início</a>
+            <a class="nav-link" href="#home">Página Inicial</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#about">Sobre</a>
+            <a class="nav-link" id="nav-about" href="#about-title">Nossa História
+            </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#menu">Produtos</a>
+            <a class="nav-link" href="#menu">Cardápio</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#chefs">Nossa Equipe</a>
+            <a class="nav-link" id="nav-chefs" href="#chefs-title">Nossa Equipe</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#about">Explorar</a>
+            <a class="nav-link" id="nav-info-hours" href="#info-hours">Nossos horários</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="nav-info-contact" href="#info-contact">Contato</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="https://maps.google.com/maps?saddr=&daddr=Rua%20Castelo%20Branco,%20Belo%20Horizonte,%20Minas%20Gerais%2030290-200%20Brasil@-19.86753,-44.00482" target="_blank" rel="noopener">Encontrar uma loja</a>
@@ -67,7 +71,7 @@
           <div class="col-12 col-md-6 text-center text-md-start" data-aos="fade-right">
             <div class="section-heading mb-3">
               
-              <h2 class="display-4">Nossa História</h2>
+              <h2 class="display-4" id="about-title" tabindex="0">Nossa História</h2>
             </div>
             <p>
 Fundada em Belo Horizonte, a Padaria Pim Pão nasceu com o propósito de oferecer mais do que pães fresquinhos e receitas de família: queremos criar experiências acolhedoras para todos. Com várias filiais espalhadas pela capital mineira, nossa padaria é referência em qualidade, tradição e inovação no setor de panificação.
@@ -93,11 +97,11 @@ Na Pim Pão, cada cliente importa — e cada detalhe é pensado para que sua exp
     <section class="info" id="info">
       <div class="container">
         <div class="row text-center text-white">
-          <div class="col-12 col-md-4 mb-4 mb-md-0" data-aos="fade-up">
+      <div class="col-12 col-md-4 mb-4 mb-md-0" data-aos="fade-up" id="info-hours">
             <div class="shop-info">
               <i class="far fa-clock mb-3"></i>
-              <h2 class="mb-4">Horário de Funcionamento</h2>
-              <p>Todos os dias: 6:00h - 21:00h</p>
+        <h2 class="mb-4" tabindex="0" aria-describedby="info-hours-text" id="info-hours-title">Horário de Funcionamento</h2>
+              <p id="info-hours-text">Todos os dias: 6:00h - 21:00h</p>
             </div>
           </div>
           <div class="col-12 col-md-4 mb-4 mb-md-0" data-aos="fade-down">
@@ -110,12 +114,12 @@ Na Pim Pão, cada cliente importa — e cada detalhe é pensado para que sua exp
               </address>
             </div>
           </div>
-          <div class="col-12 col-md-4 mb-4 mb-md-0" data-aos="fade-right">
+      <div class="col-12 col-md-4 mb-4 mb-md-0" data-aos="fade-right" id="info-contact">
             <div class="shop-info">
               <i class="fas fa-mobile-alt mb-3"></i>
-              <h2 class="mb-4">Entre em Contato</h2>
-              <p>Telefone: (31) 99776-2691</p>
-              <p>Email: padariapingpao@example.com</p>
+        <h2 class="mb-4" tabindex="0" aria-describedby="contact-phone contact-email" id="info-contact-title">Entre em Contato</h2>
+              <p id="contact-phone">Telefone: (31) 99776-2691</p>
+              <p id="contact-email">Email: padariapingpao@example.com</p>
             </div>
           </div>
         </div>
@@ -302,7 +306,7 @@ Na Pim Pão, cada cliente importa — e cada detalhe é pensado para que sua exp
       <div class="container">
         <div class="section-heading my-5 text-center">
           
-          <h2 class="display-4">Nossos Chefs</h2>
+          <h2 class="display-4" id="chefs-title" tabindex="0">Nossos Chefs</h2>
         </div>
 
         <div class="row text-center">

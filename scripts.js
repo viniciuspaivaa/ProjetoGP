@@ -56,7 +56,43 @@ $(function () {
   // Recalcula AOS ao navegar por âncoras (ex.: #home, #about, #menu, #chefs)
   window.addEventListener('hashchange', () => {
     try { (AOS.refreshHard ? AOS.refreshHard() : AOS.refresh()); } catch {}
+    // Dar foco quando vier das âncoras específicas
+    const h = location.hash.replace('#','');
+    if (h === 'info-hours') {
+      const t = document.getElementById('info-hours-title');
+      if (t) setTimeout(() => t.focus(), 0);
+    }
+    if (h === 'info-contact') {
+      const t = document.getElementById('info-contact-title');
+      if (t) setTimeout(() => t.focus(), 0);
+    }
+    if (h === 'about-title') {
+      const t = document.getElementById('about-title');
+      if (t) setTimeout(() => t.focus(), 0);
+    }
+    if (h === 'chefs-title') {
+      const t = document.getElementById('chefs-title');
+      if (t) setTimeout(() => t.focus(), 0);
+    }
   });
+
+  // Também ao carregar a página já com hash
+  (function focusFromInitialHash(){
+    const h = location.hash.replace('#','');
+    if (h === 'info-hours') {
+      const t = document.getElementById('info-hours-title');
+      if (t) setTimeout(() => t.focus(), 100);
+    } else if (h === 'info-contact') {
+      const t = document.getElementById('info-contact-title');
+      if (t) setTimeout(() => t.focus(), 100);
+    } else if (h === 'about-title') {
+      const t = document.getElementById('about-title');
+      if (t) setTimeout(() => t.focus(), 100);
+    } else if (h === 'chefs-title') {
+      const t = document.getElementById('chefs-title');
+      if (t) setTimeout(() => t.focus(), 100);
+    }
+  })();
   // ====== Cardápio: busca/filtragem ======
   const $search = $('#menu-search');
   const $clear = $('#menu-clear');
@@ -240,5 +276,147 @@ $(function () {
     applyVisionMode(saved);
   } catch { applyVisionMode('tricromatico'); }
   ensureVisionControl();
+
+  // ====== Acessibilidade: Leitura automática dos Chefs (Tab + Enter) ======
+  function ensureLiveRegion() {
+    let live = document.getElementById('sr-live-region');
+    if (!live) {
+      live = document.createElement('div');
+      live.id = 'sr-live-region';
+      live.setAttribute('role', 'status');
+      live.setAttribute('aria-live', 'polite');
+      live.setAttribute('aria-atomic', 'true');
+      live.style.position = 'absolute';
+      live.style.left = '-9999px';
+      live.style.width = '1px';
+      live.style.height = '1px';
+      live.style.overflow = 'hidden';
+      document.body.appendChild(live);
+    }
+    return live;
+  }
+
+  function announce(text) {
+    const live = ensureLiveRegion();
+    // limpa e atualiza para forçar anúncio
+    live.textContent = '';
+    setTimeout(() => { live.textContent = text; }, 10);
+  }
+
+  function speakText(text) {
+    const synth = window.speechSynthesis;
+    if (!synth) { return; }
+    try { synth.cancel(); } catch {}
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'pt-BR';
+    u.rate = 1;
+    u.pitch = 1;
+    try { synth.speak(u); } catch {}
+  }
+
+  // Controle simples para evitar leituras duplicadas imediatas no mesmo elemento
+  let lastSpokenEl = null;
+  let lastSpokenAt = 0;
+  function shouldSpeakFor(el) {
+    const now = Date.now();
+    if (lastSpokenEl === el && (now - lastSpokenAt) < 800) return false;
+    lastSpokenEl = el;
+    lastSpokenAt = now;
+    return true;
+  }
+
+  // Helpers de leitura por seção
+  function readChefsSection() {
+    const parts = [];
+    $('#chefs .card-body').each(function(){
+      const name = ($(this).find('h2').text() || '').trim();
+      const spec = ($(this).find('h6').text() || '').trim();
+      const desc = ($(this).find('p').text() || '').trim();
+      if (name) parts.push(`Chef ${name}.`);
+      if (spec) parts.push(`${spec}.`);
+      if (desc) parts.push(`${desc}`);
+    });
+    const text = parts.join(' ');
+    if (text) { announce(text); speakText(text); }
+  }
+
+  function readAboutSection() {
+    const parts = ['Nossa História.'];
+    const desc = ($('#about').find('p').first().text() || '').trim();
+    if (desc) parts.push(desc);
+    const text = parts.join(' ');
+    if (text) { announce(text); speakText(text); }
+  }
+
+  function readInfoHours() {
+    const title = (document.getElementById('info-hours-title')?.textContent || 'Horário de Funcionamento').trim();
+    const hours = (document.getElementById('info-hours-text')?.textContent || '').trim();
+    const text = [title + '.', hours].filter(Boolean).join(' ');
+    if (text) { announce(text); speakText(text); }
+  }
+
+  function readInfoContact() {
+    const title = (document.getElementById('info-contact-title')?.textContent || 'Entre em Contato').trim();
+    const phone = (document.getElementById('contact-phone')?.textContent || '').trim();
+    const email = (document.getElementById('contact-email')?.textContent || '').trim();
+    const text = [title + '.', phone + '.', email + '.'].filter(Boolean).join(' ');
+    if (text) { announce(text); speakText(text); }
+  }
+
+  $(document).on('keydown', '#chefs-title', function(e){ if (e.key === 'Enter') readChefsSection(); });
+  $(document).on('focusin', '#chefs-title', function(){ if (shouldSpeakFor(this)) readChefsSection(); });
+
+  // Leitura automática da seção "Nossa História"
+  $(document).on('keydown', '#about-title', function(e){ if (e.key === 'Enter') readAboutSection(); });
+  $(document).on('focusin', '#about-title', function(){ if (shouldSpeakFor(this)) readAboutSection(); });
+
+  // Leitura automática: Horário de Funcionamento (Enter no título)
+  $(document).on('keydown', '#info-hours-title', function(e){ if (e.key === 'Enter') readInfoHours(); });
+  $(document).on('focusin', '#info-hours-title', function(){ if (shouldSpeakFor(this)) readInfoHours(); });
+
+  // Leitura automática: Entre em Contato (Enter no título)
+  $(document).on('keydown', '#info-contact-title', function(e){ if (e.key === 'Enter') readInfoContact(); });
+  $(document).on('focusin', '#info-contact-title', function(){ if (shouldSpeakFor(this)) readInfoContact(); });
+
+  // Permitir parar a leitura com ESC
+  $(document).on('keydown', function(e){
+    if (e.key === 'Escape') {
+      try { window.speechSynthesis.cancel(); } catch {}
+      const live = document.getElementById('sr-live-region');
+      if (live) live.textContent = '';
+    }
+  });
+
+  // ====== Acessibilidade: Enter no link "Cardápio" do cabeçalho vai para Produtos ======
+  // Mantemos o clique de mouse rolando para #menu, mas se o usuário navegar por foco (Tab)
+  // e pressionar Enter, redirecionamos para a página de produtos.
+  $(document).on('keydown', 'a.nav-link[href="#menu"]', function(e){
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      window.location.href = 'produtos.html';
+    }
+  });
+
+  // ====== Acessibilidade: preservar e restaurar foco com Shift+Tab ======
+  let lastNavLinkId = null;
+  // Ao clicar em Nossos horários/Contato, marca origem
+  $(document).on('click keydown', '#nav-info-hours, #nav-info-contact', function(e){
+    // Se for Enter ou clique do mouse, registra
+    if (e.type === 'click' || e.key === 'Enter' || e.key === ' ') {
+      lastNavLinkId = this.id;
+    }
+  });
+  function restoreFocusToNav() {
+    if (!lastNavLinkId) return;
+    const el = document.getElementById(lastNavLinkId);
+    if (el) el.focus();
+  }
+  // No título focado, Shift+Tab retorna para o link do menu que trouxe até aqui
+  $(document).on('keydown', '#info-hours-title, #info-contact-title, #about-title, #chefs-title', function(e){
+    if (e.key === 'Tab' && e.shiftKey) {
+      e.preventDefault();
+      restoreFocusToNav();
+    }
+  });
 });
 
