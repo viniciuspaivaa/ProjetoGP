@@ -113,10 +113,10 @@
   <main>
     <section class="produtos-section">
       <div class="container hero-intro mb-4">
-        <h2 class="display-4">Bem-vindo!</h2>
+        
         <p class="lead mb-0">Produtos de padaria como você JAMAIS viu antes!</p>
       </div>
-      <h1 class="produtos-title">Produtos</h1>
+  <h1 class="produtos-title" id="produtos-title" tabindex="0">Nossos Deliciosos Produtos!</h1>
       <!-- Menu com abas Doces/Pães + Busca -->
       <div id="menu" class="container">
         <div class="menu-toolbar container mb-4 p-0">
@@ -142,8 +142,8 @@
                 <h6>R$20</h6>
                 <p>Bolo de chocolate macio, feito com cacau puro e cobertura cremosa. Uma explosão de sabor para os amantes de chocolate!</p>
                 <div class="datas">
-                  <span>Validade: 25/08/2025</span><br>
-                  <span>Fabricação: 20/08/2025</span>
+                  <span>Validade: 25/06/2025</span><br>
+                  <span>Fabricação: 20/09/2025</span>
                 </div>
                 <button class="btn" onclick="lerCard('card-bolo-chocolate')"><i class="fas fa-volume-up"></i> Ler texto</button>
                 <button class="btn" disabled><i class="fas fa-video"></i> Vídeo (em breve)</button>
@@ -157,8 +157,8 @@
                 <h6>R$19,99</h6>
                 <p>Bolo fofinho recheado e coberto com bombons sortidos, perfeito para quem adora uma surpresa doce a cada mordida.</p>
                 <div class="datas">
-                  <span>Validade: 25/08/2025</span><br>
-                  <span>Fabricação: 20/08/2025</span>
+                  <span>Validade: 25/06/2025</span><br>
+                  <span>Fabricação: 20/09/2025</span>
                 </div>
                 <button class="btn" onclick="lerCard('card-bolo-bombom')"><i class="fas fa-volume-up"></i> Ler texto</button>
                 <button class="btn" disabled><i class="fas fa-video"></i> Vídeo (em breve)</button>
@@ -173,7 +173,7 @@
                 <p>Bombons artesanais com recheios variados, feitos com chocolate de alta qualidade e decoração especial.</p>
                 <div class="datas">
                   <span>Validade: 25/08/2025</span><br>
-                  <span>Fabricação: 20/08/2025</span>
+                  <span>Fabricação: 20/09/2025</span>
                 </div>
                 <button class="btn" onclick="lerCard('card-bomboms')"><i class="fas fa-volume-up"></i> Ler texto</button>
                 <button class="btn" disabled><i class="fas fa-video"></i> Vídeo (em breve)</button>
@@ -188,7 +188,7 @@
                 <p>Tradicional caçarola mineira, com textura cremosa e sabor marcante de queijo e coco. Uma receita clássica da nossa padaria.</p>
                 <div class="datas">
                   <span>Validade: 25/08/2025</span><br>
-                  <span>Fabricação: 20/08/2025</span>
+                  <span>Fabricação: 20/09/2025</span>
                 </div>
                 <button class="btn" onclick="lerCard('card-cacarola')"><i class="fas fa-volume-up"></i> Ler texto</button>
                 <button class="btn" disabled><i class="fas fa-video"></i> Vídeo (em breve)</button>
@@ -203,7 +203,7 @@
                 <p>Bolo leve e recheado com creme e morangos frescos, finalizado com cobertura suave. Ideal para quem busca um doce refrescante.</p>
                 <div class="datas">
                   <span>Validade: 25/08/2025</span><br>
-                  <span>Fabricação: 20/08/2025</span>
+                  <span>Fabricação: 20/09/2025</span>
                 </div>
                 <button class="btn" onclick="lerCard('card-bolo-morango')"><i class="fas fa-volume-up"></i> Ler texto</button>
                 <button class="btn" disabled><i class="fas fa-video"></i> Vídeo (em breve)</button>
@@ -218,7 +218,7 @@
                 <p>Mini bolos coloridos e decorados, perfeitos para festas e lembrancinhas. Diversão e sabor em cada pedacinho.</p>
                 <div class="datas">
                   <span>Validade: 25/08/2025</span><br>
-                  <span>Fabricação: 20/08/2025</span>
+                  <span>Fabricação: 20/09/2025</span>
                 </div>
                 <button class="btn" onclick="lerCard('card-mini-bolos')"><i class="fas fa-volume-up"></i> Ler texto</button>
                 <button class="btn" disabled><i class="fas fa-video"></i> Vídeo (em breve)</button>
@@ -231,7 +231,7 @@
         <div id="menu-paes" class="menu-category" data-cat="paes" hidden>
           <div class="row justify-content-center">
             <div class="col-12 col-md-6 col-lg-4">
-              <div class="card-produto" data-item="p1" data-name="Pão Francês" data-price="5" data-img="images/pão frances.jpg">
+              <div class="card-produto" data-item="p1" data-name="Pão Francês" data-price="5" data-img="images/pão frances.jpg" id="card-pao-frances">
                 <img src="images/pão frances.jpg" alt="Pão Francês">
                 <h2>Pão Francês</h2>
                 <h6>R$5</h6>
@@ -240,10 +240,12 @@
                   <span>Validade: 25/08/2025</span><br>
                   <span>Fabricação: 20/08/2025</span>
                 </div>
+                <button class="btn" onclick="lerCard('card-pao-frances')"><i class="fas fa-volume-up"></i> Ler texto</button>
+                <button class="btn" disabled><i class="fas fa-video"></i> Vídeo (em breve)</button>
               </div>
             </div>
             <div class="col-12 col-md-6 col-lg-4">
-              <div class="card-produto" data-item="p2" data-name="Pão Italiano" data-price="8" data-img="images/pão-italiano.jpg">
+              <div class="card-produto" data-item="p2" data-name="Pão Italiano" data-price="8" data-img="images/pão-italiano.jpg" id="card-pao-italiano">
                 <img src="images/pão-italiano.jpg" alt="Pão Italiano">
                 <h2>Pão Italiano</h2>
                 <h6>R$8</h6>
@@ -252,10 +254,12 @@
                   <span>Validade: 25/08/2025</span><br>
                   <span>Fabricação: 20/08/2025</span>
                 </div>
+                <button class="btn" onclick="lerCard('card-pao-italiano')"><i class="fas fa-volume-up"></i> Ler texto</button>
+                <button class="btn" disabled><i class="fas fa-video"></i> Vídeo (em breve)</button>
               </div>
             </div>
             <div class="col-12 col-md-6 col-lg-4">
-              <div class="card-produto" data-item="p3" data-name="Pão Integral" data-price="9" data-img="images/pão integral.webp">
+              <div class="card-produto" data-item="p3" data-name="Pão Integral" data-price="9" data-img="images/pão integral.webp" id="card-pao-integral">
                 <img src="images/pão integral.webp" alt="Pão Integral">
                 <h2>Pão Integral</h2>
                 <h6>R$9</h6>
@@ -264,10 +268,12 @@
                   <span>Validade: 25/08/2025</span><br>
                   <span>Fabricação: 20/08/2025</span>
                 </div>
+                <button class="btn" onclick="lerCard('card-pao-integral')"><i class="fas fa-volume-up"></i> Ler texto</button>
+                <button class="btn" disabled><i class="fas fa-video"></i> Vídeo (em breve)</button>
               </div>
             </div>
             <div class="col-12 col-md-6 col-lg-4">
-              <div class="card-produto" data-item="p4" data-name="Pão de Queijo" data-price="7" data-img="images/pão-de-queijo.jpg">
+              <div class="card-produto" data-item="p4" data-name="Pão de Queijo" data-price="7" data-img="images/pão-de-queijo.jpg" id="card-pao-de-queijo">
                 <img src="images/pão-de-queijo.jpg" alt="Pão de Queijo">
                 <h2>Pão de Queijo</h2>
                 <h6>R$7</h6>
@@ -276,10 +282,12 @@
                   <span>Validade: 25/08/2025</span><br>
                   <span>Fabricação: 20/08/2025</span>
                 </div>
+                <button class="btn" onclick="lerCard('card-pao-de-queijo')"><i class="fas fa-volume-up"></i> Ler texto</button>
+                <button class="btn" disabled><i class="fas fa-video"></i> Vídeo (em breve)</button>
               </div>
             </div>
             <div class="col-12 col-md-6 col-lg-4">
-              <div class="card-produto" data-item="p5" data-name="Pão de Forma" data-price="10" data-img="images/Pão-de-forma.jpg">
+              <div class="card-produto" data-item="p5" data-name="Pão de Forma" data-price="10" data-img="images/Pão-de-forma.jpg" id="card-pao-de-forma">
                 <img src="images/Pão-de-forma.jpg" alt="Pão de Forma">
                 <h2>Pão de Forma</h2>
                 <h6>R$10</h6>
@@ -288,10 +296,12 @@
                   <span>Validade: 25/08/2025</span><br>
                   <span>Fabricação: 20/08/2025</span>
                 </div>
+                <button class="btn" onclick="lerCard('card-pao-de-forma')"><i class="fas fa-volume-up"></i> Ler texto</button>
+                <button class="btn" disabled><i class="fas fa-video"></i> Vídeo (em breve)</button>
               </div>
             </div>
             <div class="col-12 col-md-6 col-lg-4">
-              <div class="card-produto" data-item="p6" data-name="Baguete" data-price="6" data-img="images/baguete.jpg">
+              <div class="card-produto" data-item="p6" data-name="Baguete" data-price="6" data-img="images/baguete.jpg" id="card-baguete">
                 <img src="images/baguete.jpg" alt="Baguete">
                 <h2>Baguete</h2>
                 <h6>R$6</h6>
@@ -300,6 +310,8 @@
                   <span>Validade: 25/08/2025</span><br>
                   <span>Fabricação: 20/08/2025</span>
                 </div>
+                <button class="btn" onclick="lerCard('card-baguete')"><i class="fas fa-volume-up"></i> Ler texto</button>
+                <button class="btn" disabled><i class="fas fa-video"></i> Vídeo (em breve)</button>
               </div>
             </div>
           </div>

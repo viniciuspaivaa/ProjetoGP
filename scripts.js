@@ -74,10 +74,23 @@ $(function () {
       const t = document.getElementById('chefs-title');
       if (t) setTimeout(() => t.focus(), 0);
     }
+    if (h === 'produtos-title') {
+      const t = document.getElementById('produtos-title');
+      if (t) setTimeout(() => t.focus(), 0);
+    }
   });
 
   // Também ao carregar a página já com hash
   (function focusFromInitialHash(){
+    // Se viemos do botão "Voltar à página inicial", focar diretamente no nav-home
+    try {
+      const flag = sessionStorage.getItem('focus_nav_home');
+      if (flag === '1') {
+        sessionStorage.removeItem('focus_nav_home');
+        const homeLink = document.getElementById('nav-home');
+        if (homeLink) setTimeout(() => homeLink.focus(), 120);
+      }
+    } catch {}
     const h = location.hash.replace('#','');
     if (h === 'info-hours') {
       const t = document.getElementById('info-hours-title');
@@ -91,8 +104,40 @@ $(function () {
     } else if (h === 'chefs-title') {
       const t = document.getElementById('chefs-title');
       if (t) setTimeout(() => t.focus(), 100);
+    } else if (h === 'produtos-title') {
+      const t = document.getElementById('produtos-title');
+      if (t) setTimeout(() => t.focus(), 100);
     }
   })();
+  // Marcar intenção de focar a Home ao clicar no link de retorno
+  $(document).on('click keydown', 'section[aria-label="Voltar à página inicial"] a[href="index.html#home"]', function(e){
+    if (e.type === 'click' || e.key === 'Enter' || e.key === ' ') {
+      try { sessionStorage.setItem('focus_nav_home', '1'); } catch {}
+    }
+  });
+
+  // Leitor de tela ao focar o link "Voltar à página inicial"
+  $(document).on('focusin', 'section[aria-label="Voltar à página inicial"] a[href="index.html#home"]', function(){
+    if (shouldSpeakFor(this)) {
+  const msg = 'Voltar à página inicial. Pressione Enter para voltar para a página inicial.';
+      announce(msg);
+      speakText(msg);
+    }
+  });
+
+  // Shift+Tab no link "Voltar" retorna para a barra de pesquisa
+  $(document).on('keydown', 'section[aria-label="Voltar à página inicial"] a[href="index.html#home"]', function(e){
+    if (e.key === 'Tab' && e.shiftKey) {
+      e.preventDefault();
+      const search = document.getElementById('menu-search');
+      if (search) {
+        search.focus();
+        const msg = 'Retornando para a barra de pesquisa.';
+        announce(msg);
+        speakText(msg);
+      }
+    }
+  });
   // ====== Cardápio: busca/filtragem ======
   const $search = $('#menu-search');
   const $clear = $('#menu-clear');
@@ -124,8 +169,113 @@ $(function () {
     if (docesHas) $doces.removeAttr('hidden'); else $doces.attr('hidden','');
     if (paesHas) $paes.removeAttr('hidden'); else $paes.attr('hidden','');
   }
-  $search.on('input', filterMenu);
-  $clear.on('click', function(){ $search.val(''); filterMenu(); $search.trigger('blur'); });
+  // Atualiza visibilidade/tabulação do botão Limpar conforme conteúdo da busca
+  function updateClearFocusable() {
+    const term = ($search.val() || '').toString().trim();
+    if (term) {
+      $clear.attr('tabindex', 0).removeAttr('aria-disabled');
+    } else {
+      $clear.attr('tabindex', -1).attr('aria-disabled', 'true');
+    }
+  }
+
+  $search.on('input', function(){ filterMenu(); updateClearFocusable(); });
+  $clear.on('click', function(){
+    $search.val('');
+    filterMenu();
+    updateClearFocusable();
+    // Feedback auditivo e foco de volta na busca
+    const msg = 'Pesquisa limpa. Digite para pesquisar novamente.';
+    announce(msg);
+    speakText(msg);
+    setTimeout(() => $search.focus(), 0);
+  });
+  // Anúncio ao focar o botão Limpar
+  $(document).on('focusin', '#menu-clear', function(){
+    if (shouldSpeakFor(this)) {
+      const msg = 'Limpar a barra de pesquisa. Pressione Enter para limpar.';
+      announce(msg);
+      speakText(msg);
+    }
+  });
+  // Inicializa estado do botão Limpar
+  updateClearFocusable();
+
+  // Acessibilidade: leitor na barra de pesquisa e leitura do primeiro item ao pressionar Enter
+  $(document).on('focusin', '#menu-search', function(){
+    if (shouldSpeakFor(this)) {
+      const msg = 'Barra de pesquisa, deseja pesquisar algum produto? Apenas digite.';
+      announce(msg);
+      speakText(msg);
+    }
+  });
+
+  function focusAndReadFirstVisibleProduct(preferredCat) {
+    // Montar ordem de categorias a tentar
+    const visibleCats = [];
+    if (!$('#menu-doces').is('[hidden]')) visibleCats.push('doces');
+    if (!$('#menu-paes').is('[hidden]')) visibleCats.push('paes');
+    let order = [];
+    const activeCat = preferredCat || ($('.menu-cat-btn.active').data('cat') || getActiveCategoryId());
+    if (visibleCats.includes(activeCat)) order.push(activeCat);
+    order = order.concat(visibleCats.filter(c => !order.includes(c)));
+    if (!order.length) order = [activeCat];
+
+    for (let i = 0; i < order.length; i++) {
+      const cat = order[i];
+      const $container = getCategoryContainer(cat);
+      if (!$container.length) continue;
+      const $item = $container.find('[data-item]:not(.menu-item-hidden)').first();
+      if (!$item.length) continue;
+      // Tentar clicar no botão "Ler texto"
+      let $btn = $item.find('.btn').filter(function(){
+        return ($(this).text() || '').trim().toLowerCase().startsWith('ler texto');
+      }).first();
+      if (!$btn.length) $btn = $item.find('.btn').first();
+      if ($btn.length) {
+        $btn.focus();
+        try { window.speechSynthesis.cancel(); } catch {}
+        setTimeout(() => { try { $btn.trigger('click'); } catch {} }, 60);
+        return true;
+      }
+      // Fallback: título
+      const $title = $item.find('h2').first();
+      if ($title.length) {
+        $title.attr('tabindex', 0).focus();
+        try { window.speechSynthesis.cancel(); } catch {}
+        speakCardDetailsFromEl($title.get(0));
+        return true;
+      }
+    }
+    return false;
+  }
+
+  $(document).on('keydown', '#menu-search', function(e){
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      // Aplicar filtro atual e ler o primeiro item disponível
+      filterMenu();
+      // Evitar redirecionamentos de Tab automáticos configurados por seleção de categoria
+      try { window.__pendingFocusToFirstProduct = false; window.__autoReadFirst = false; } catch {}
+      const ok = focusAndReadFirstVisibleProduct();
+      if (!ok) {
+        const msg = 'Nenhum produto encontrado para sua pesquisa.';
+        announce(msg);
+        speakText(msg);
+      }
+    } else if (e.key === 'Tab' && !e.shiftKey) {
+      // Se a busca estiver vazia, pular diretamente para "Voltar à página inicial"
+      const term = ($search.val() || '').toString().trim();
+      if (!term) {
+        e.preventDefault();
+        const backLink = document.querySelector('section[aria-label="Voltar à página inicial"] a[href="index.html#home"]')
+          || document.querySelector('a[href="index.html#home"]');
+        if (backLink) {
+          backLink.focus();
+        }
+      }
+    }
+  });
 
   // Alternância de categorias Doces/Pães
   $(document).on('click', '.menu-cat-btn', function(){
@@ -145,6 +295,46 @@ $(function () {
   if (term) filterMenu(); else try { $('#menu-clear').trigger('click'); } catch {}
   // Recalcular AOS ao alternar de aba
   try { (AOS.refreshHard ? AOS.refreshHard() : AOS.refresh()); } catch {}
+  // Marcar que o próximo Tab deve ir ao primeiro produto da categoria
+  try {
+    window.__lastSelectedCat = cat;
+    window.__pendingFocusToFirstProduct = true;
+    window.__autoReadFirst = true;
+    window.__firstProductBtn = null;
+  } catch {}
+
+  // Leitura imediata do primeiro produto da categoria selecionada
+  // Pequeno atraso para garantir DOM atualizado e AOS recalculado
+  setTimeout(() => {
+    try {
+      const activeCat = cat;
+      // Tentar focar o botão "Ler texto" do primeiro card
+      let first = focusFirstProductBtn(activeCat);
+      if (first) {
+        // Evitar auto-read duplicado do handler de foco
+        window.__autoReadFirst = false;
+        window.__firstProductBtn = first;
+        try { window.speechSynthesis.cancel(); } catch {}
+        // Acionar a leitura imediatamente
+        setTimeout(() => { try { first.click(); } catch {} }, 50);
+        // Já direcionamos o foco manualmente, não precisamos do Tab especial
+        window.__pendingFocusToFirstProduct = false;
+        return;
+      }
+      // Fallback: sem botão de leitura, focar o primeiro título e falar os detalhes
+      first = focusFirstProduct(activeCat);
+      if (first) {
+        window.__pendingFocusToFirstProduct = false;
+        try { window.speechSynthesis.cancel(); } catch {}
+        speakCardDetailsFromEl(first);
+      }
+    } catch {}
+  }, 250);
+  });
+
+  // Selecionar categoria com Enter ou Espaço
+  $(document).on('keydown', '.menu-cat-btn', function(e){
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
   });
 
   // ====== Quick view simples (usa attributes de dados) ======
@@ -340,6 +530,110 @@ $(function () {
     if (text) { announce(text); speakText(text); }
   }
 
+  // ====== Leitura automática: itens do menu de navegação ao receber foco ======
+  function readNavItem(el) {
+    const label = (el?.textContent || '').trim();
+    if (!label) return;
+  const isHome = (el && el.id === 'nav-home') || label.toLowerCase() === 'página inicial';
+  const text = isHome ? `${label}.` : `${label}. Pressione Enter para ir para ${label.toLowerCase()}.`;
+    announce(text);
+    speakText(text);
+  }
+
+  $(document).on('focusin', 'nav .nav-link', function(){
+    if (shouldSpeakFor(this)) readNavItem(this);
+  });
+
+  // Após selecionar categoria, enviar o próximo Tab para o primeiro produto
+  function focusFirstProductBtn(cat) {
+    const containerId = cat === 'paes' ? '#menu-paes' : '#menu-doces';
+    const $container = $(containerId);
+    if (!$container.length || $container.is('[hidden]')) return null;
+    // Preferir o botão "Ler texto" do primeiro card
+    let $btn = $container.find('.card-produto .btn').filter(function(){
+      return ($(this).text() || '').trim().toLowerCase().startsWith('ler texto');
+    }).first();
+    if (!$btn.length) $btn = $container.find('.card-produto .btn').first();
+    if ($btn.length) { $btn.focus(); return $btn.get(0); }
+    return null;
+  }
+  $(document).on('keydown', '.menu-cat-btn', function(e){
+    if (e.key === 'Tab' && !e.shiftKey && window.__pendingFocusToFirstProduct) {
+      const isActive = $(this).hasClass('active') || $(this).attr('aria-selected') === 'true';
+      if (isActive) {
+        e.preventDefault();
+        const cat = window.__lastSelectedCat || $(this).data('cat');
+  const first = focusFirstProductBtn(cat);
+  try { window.__firstProductBtn = first || window.__firstProductBtn; } catch {}
+        window.__pendingFocusToFirstProduct = false;
+      }
+    }
+  });
+
+  // Ao focar o botão "Ler texto" de um card, anunciar nome e instrução
+  $(document).on('focusin', '.card-produto .btn', function(){
+    const label = ($(this).text() || '').trim().toLowerCase();
+    if (!label.startsWith('ler texto')) return; // apenas no botão de leitura
+    const $card = $(this).closest('.card-produto');
+    const name = ($card.find('h2').first().text() || '').trim();
+    if (!name) return;
+    if (shouldSpeakFor(this)) {
+      const text = `${name}. Gostaria de saber os detalhes do produto? Pressione Enter para ouvir os detalhes.`;
+      announce(text);
+      speakText(text);
+    }
+    // Se veio de uma seleção de categoria, aciona leitura automática após breve pausa
+    try {
+      if (window.__autoReadFirst && this === window.__firstProductBtn) {
+        clearTimeout(window.__autoReadTimeout);
+        window.__autoReadTimeout = setTimeout(() => {
+          if (document.activeElement === this) { this.click(); }
+          window.__autoReadFirst = false;
+        }, 1200);
+      }
+    } catch {}
+  });
+
+  $(document).on('focusout', '.card-produto .btn', function(){ try { clearTimeout(window.__autoReadTimeout); } catch {} });
+
+  // Quando estiver no último produto e pressionar Tab, voltar para as categorias
+  $(document).on('keydown', '.card-produto .btn, .card-produto h2[tabindex="0"]', function(e){
+    if (e.key === 'Tab' && !e.shiftKey) {
+      // Se for botão, só consideramos o de "Ler texto"
+      if (this.matches('.btn')) {
+        const label = (this.textContent || '').trim().toLowerCase();
+        if (!label.startsWith('ler texto')) return; // ignora outros botões (ex.: Vídeo)
+      }
+      const cat = getActiveCategoryId();
+      const { list } = ensureProductFocusables(cat);
+      if (list.length && this === list.last().get(0)) {
+        e.preventDefault();
+        const firstCat = document.querySelector('.menu-cats-inner .menu-cat-btn');
+        if (firstCat) {
+          firstCat.focus();
+          announce('Retornando às categorias.');
+          speakText('Retornando às categorias.');
+        }
+      }
+    }
+  });
+
+  // Loop de foco no menu: Tab no último volta ao primeiro; Shift+Tab no primeiro volta ao último
+  $(document).on('keydown', '#nav-find-store', function(e){
+    if (e.key === 'Tab' && !e.shiftKey) {
+      e.preventDefault();
+      const first = document.getElementById('nav-home');
+      if (first) first.focus();
+    }
+  });
+  $(document).on('keydown', '#nav-home', function(e){
+    if (e.key === 'Tab' && e.shiftKey) {
+      e.preventDefault();
+      const last = document.getElementById('nav-find-store');
+      if (last) last.focus();
+    }
+  });
+
   function readAboutSection() {
     const parts = ['Nossa História.'];
     const desc = ($('#about').find('p').first().text() || '').trim();
@@ -363,6 +657,57 @@ $(function () {
     if (text) { announce(text); speakText(text); }
   }
 
+  function readProdutosTitle() {
+    const title = (document.getElementById('produtos-title')?.textContent || '').trim();
+    if (!title) return;
+  const text = `${title}. Qual você gostaria de experimentar hoje? Doces ou Pães? Pressione Tab para navegar pelos filtros e produtos.`;
+    announce(text);
+    speakText(text);
+  }
+
+  // ====== Produtos: utilitários de foco e leitura ======
+  function getActiveCategoryId() {
+    if ($('#menu-paes').length && !$('#menu-paes').is('[hidden]')) return 'paes';
+    return 'doces';
+  }
+  function getCategoryContainer(cat) {
+    return cat === 'paes' ? $('#menu-paes') : $('#menu-doces');
+  }
+  function ensureProductFocusables(cat) {
+    const $container = getCategoryContainer(cat);
+    if (!$container.length) return { list: $(), type: 'none' };
+    // Preferir botões "Ler texto"
+    let $list = $container.find('.card-produto .btn').filter(function(){
+      return ($(this).text() || '').trim().toLowerCase().startsWith('ler texto');
+    });
+    if ($list.length) return { list: $list, type: 'button' };
+    // Fallback: tornar títulos focáveis
+    const $titles = $container.find('.card-produto h2');
+    $titles.attr('tabindex', 0);
+    return { list: $titles, type: 'title' };
+  }
+  function focusFirstProduct(cat) {
+    const { list } = ensureProductFocusables(cat);
+    const $first = list.first();
+    if ($first.length) { $first.focus(); return $first.get(0); }
+    return null;
+  }
+  function speakCardDetailsFromEl(el) {
+    const $card = $(el).closest('.card-produto');
+    if (!$card.length) return;
+    const name = ($card.find('h2').first().text() || '').trim();
+    const price = ($card.find('h6').first().text() || '').trim();
+    const desc = ($card.find('p').first().text() || '').trim();
+    const datas = ($card.find('.datas').text() || '').trim();
+    const parts = [];
+    if (name) parts.push(name + '.');
+    if (price) parts.push(price + '.');
+    if (desc) parts.push(desc);
+    if (datas) parts.push(datas);
+    const text = parts.join(' ');
+    if (text) { announce(text); speakText(text); }
+  }
+
   $(document).on('keydown', '#chefs-title', function(e){ if (e.key === 'Enter') readChefsSection(); });
   $(document).on('focusin', '#chefs-title', function(){ if (shouldSpeakFor(this)) readChefsSection(); });
 
@@ -377,6 +722,29 @@ $(function () {
   // Leitura automática: Entre em Contato (Enter no título)
   $(document).on('keydown', '#info-contact-title', function(e){ if (e.key === 'Enter') readInfoContact(); });
   $(document).on('focusin', '#info-contact-title', function(){ if (shouldSpeakFor(this)) readInfoContact(); });
+
+  // Leitura automática: título da página de produtos
+  $(document).on('keydown', '#produtos-title', function(e){ if (e.key === 'Enter') readProdutosTitle(); });
+  $(document).on('focusin', '#produtos-title', function(){ if (shouldSpeakFor(this)) readProdutosTitle(); });
+
+  // Leitor nas abas Doces / Pães (foco e seleção)
+  function readCategoryFocus(el){
+    const label = (el?.textContent || '').trim();
+    if (!label) return;
+    const text = `Categoria: ${label}. Pressione Enter para selecionar.`;
+    announce(text);
+    speakText(text);
+  }
+  function readCategorySelected(){
+    const $active = $('.menu-cat-btn.active');
+    const label = ($active.text() || '').trim();
+    if (!label) return;
+    const text = `Categoria selecionada: ${label}.`;
+    announce(text);
+    speakText(text);
+  }
+  $(document).on('focusin', '.menu-cat-btn', function(){ if (shouldSpeakFor(this)) readCategoryFocus(this); });
+  $(document).on('click', '.menu-cat-btn', function(){ setTimeout(readCategorySelected, 0); });
 
   // Permitir parar a leitura com ESC
   $(document).on('keydown', function(e){
@@ -393,7 +761,7 @@ $(function () {
   $(document).on('keydown', 'a.nav-link[href="#menu"]', function(e){
     if (e.key === 'Enter') {
       e.preventDefault();
-      window.location.href = 'produtos.html';
+  window.location.href = 'produtos.html#produtos-title';
     }
   });
 
