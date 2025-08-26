@@ -256,5 +256,37 @@ Na Pim Pão, cada cliente importa — e cada detalhe é pensado para que sua exp
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <!-- Scripts Personalizados -->
   <script src="scripts.js"></script>
+  <button id="daltonic-toggle" aria-label="Ativar modo daltônico" title="modo para daltônicos" style="position:fixed;bottom:24px;right:24px;z-index:9999;background:#fff;color:#101D2C;border:2px solid #c69963;border-radius:50%;width:54px;height:54px;box-shadow:0 2px 8px rgba(0,0,0,0.15);font-size:1.6rem;cursor:pointer;display:flex;align-items:center;justify-content:center;">🌈</button>
+  <script>
+    const btnDaltonic = document.getElementById('daltonic-toggle');
+    btnDaltonic.addEventListener('click', function() {
+      document.body.classList.toggle('daltonic-mode');
+      btnDaltonic.setAttribute('aria-pressed', document.body.classList.contains('daltonic-mode'));
+    });
+  </script>
+  <style>
+    body.daltonic-mode, body.daltonic-mode * {
+      color: #222 !important;
+      background: #f6f6f6 !important;
+      border-color: #222 !important;
+      box-shadow: none !important;
+    }
+    body.daltonic-mode .btn, body.daltonic-mode .btn:focus, body.daltonic-mode .btn:hover {
+      background: #ffe600 !important;
+      color: #222 !important;
+      border: 2px solid #222 !important;
+    }
+    body.daltonic-mode header, body.daltonic-mode nav, body.daltonic-mode .menu-tasty, body.daltonic-mode .about, body.daltonic-mode .info, body.daltonic-mode .chef, body.daltonic-mode footer {
+      background: #f6f6f6 !important;
+    }
+    /* Filtro para deuteranopia (daltonismo vermelho-verde mais comum) */
+    body.daltonic-mode .img-fluid, body.daltonic-mode img {
+      filter: url('https://raw.githubusercontent.com/Altreus/Colorblindly/master/filters/deuteranopia.svg#deuteranopia');
+      filter: contrast(1.1) saturate(1.1) grayscale(0.1) sepia(0.5) hue-rotate(-20deg) !important;
+    }
+    #daltonic-toggle:focus {
+      outline: 3px solid #ffe600;
+    }
+  </style>
 </body>
 </html>
