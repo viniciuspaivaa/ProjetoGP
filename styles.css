@@ -136,7 +136,15 @@ section {
 
 .home .hero-text h2 {
   font-family: "Niconne", cursive;
-  color: #c69963
+  color: #c69963;
+  /* Título maior e responsivo */
+  font-size: clamp(2.8rem, 6vw, 5.2rem);
+  line-height: 1.05;
+}
+
+/* Subtítulo (lead) maior e responsivo no hero */
+.home .hero-text .lead {
+  font-size: clamp(1.2rem, 2.2vw, 1.9rem);
 }
 
 /* About */
