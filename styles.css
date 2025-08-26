@@ -220,6 +220,34 @@ hr {
   margin: auto
 }
 
+/* Toolbar de busca do cardápio */
+.menu-toolbar { max-width: 1100px; }
+.menu-toolbar-inner { display:flex; gap:10px; align-items:center; justify-content:flex-end; }
+.menu-search-input {
+  width: 100%; max-width: 360px; height: 42px; border-radius: 8px; border: 1px solid rgba(198,153,99,.6);
+  background: #0c0f14; color: #f2f5f8; padding: 0 12px; outline: none; transition: box-shadow .2s, border-color .2s;
+}
+.menu-search-input::placeholder { color: #c2c7cf; opacity:.6; }
+.menu-search-input:focus { border-color:#c69963; box-shadow: 0 0 0 3px rgba(198,153,99,.25); }
+.menu-btn-clear {
+  height: 42px; padding: 0 12px; border-radius: 8px; background:#c69963; color:#101D2C; border: none; font-weight:600; cursor:pointer;
+  transition: filter .2s, transform .05s;
+}
+.menu-btn-clear:hover { filter: brightness(1.05); }
+.menu-btn-clear:active { transform: translateY(1px); }
+
+/* Botões de ação nos cards (opcional: quick view e favorito) */
+.menu-card-actions { display:flex; gap:10px; margin-top:10px; }
+.menu-btn-sm { height: 34px; padding: 0 10px; border-radius: 6px; border:1px solid #c69963; background: transparent; color:#c69963; font-weight:600; cursor:pointer; transition: background .2s, color .2s; }
+.menu-btn-sm:hover { background:#c69963; color:#101D2C; }
+
+/* Hover suave nas imagens do cardápio */
+.menu-tasty img.img-fluid { transition: transform .35s ease, box-shadow .35s ease; box-shadow: 0 0 0 rgba(0,0,0,0); }
+.menu-tasty img.img-fluid:hover { transform: scale(1.03); box-shadow: 0 12px 30px rgba(0,0,0,.25); }
+
+/* Estado de item filtrado (esconde) */
+.menu-item-hidden { display: none !important; }
+
 .menu-tasty .menu-item-desc h6 {
   color: #c69963;
   font-size: 20px;  

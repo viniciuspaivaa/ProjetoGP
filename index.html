@@ -124,13 +124,20 @@ Na Pim Pão, cada cliente importa — e cada detalhe é pensado para que sua exp
           
           <h2 class="display-4">Cardápio</h2>
         </div>
+        <!-- Barra de busca do cardápio -->
+        <div class="menu-toolbar container mb-4">
+          <div class="menu-toolbar-inner">
+            <input type="search" id="menu-search" class="menu-search-input" placeholder="Pesquisar no cardápio..." aria-label="Pesquisar no cardápio">
+            <button type="button" id="menu-clear" class="menu-btn-clear" aria-label="Limpar pesquisa">Limpar</button>
+          </div>
+        </div>
 
         <div class="row g-0">
 
-          <div class="col-12 col-sm-6 col-xl-2 order-sm-0 order-xl-0">
-            <img class="img-fluid" src="images/menu-item-1.jpg" alt="Item do cardápio 1">
+          <div class="col-12 col-sm-6 col-xl-2 order-sm-0 order-xl-0" data-item="1" data-name="Bolo de Chocolate" data-price="10" data-img="images/menu-item-1.jpg">
+            <img class="img-fluid" src="images/menu-item-1.jpg" alt="Bolo de Chocolate">
           </div>
-          <div class="col-12 col-sm-6 col-xl-2 order-sm-1 order-xl-1 point-left" data-aos="fade-in">
+          <div class="col-12 col-sm-6 col-xl-2 order-sm-1 order-xl-1 point-left" data-aos="fade-in" data-item="1" data-name="Bolo de Chocolate" data-price="10" data-img="images/menu-item-1.jpg">
             <div class="menu-item-desc">
               <h6>R$10</h6>
               <h2>Bolo de Chocolate</h2>
@@ -138,10 +145,10 @@ Na Pim Pão, cada cliente importa — e cada detalhe é pensado para que sua exp
             </div>
           </div>
 
-          <div class="col-12 col-sm-6 col-xl-2 order-sm-3 order-xl-2">
-            <img class="img-fluid" src="images/menu-item-2.jpg" alt="Item do cardápio 2">
+          <div class="col-12 col-sm-6 col-xl-2 order-sm-3 order-xl-2" data-item="2" data-name="Delicioso bolo com bombons" data-price="10" data-img="images/menu-item-2.jpg">
+            <img class="img-fluid" src="images/menu-item-2.jpg" alt="Delicioso bolo com bombons">
           </div>
-          <div class="col-12 col-sm-6 col-xl-2 order-sm-2 order-xl-3 point-left">
+          <div class="col-12 col-sm-6 col-xl-2 order-sm-2 order-xl-3 point-left" data-item="2" data-name="Delicioso bolo com bombons" data-price="10" data-img="images/menu-item-2.jpg">
             <div class="menu-item-desc">
               <h6>R$10</h6>
               <h2>Delicioso bolo com bombons</h2>
@@ -149,10 +156,10 @@ Na Pim Pão, cada cliente importa — e cada detalhe é pensado para que sua exp
             </div>
           </div>
 
-          <div class="col-12 col-sm-6 col-xl-2 order-sm-4 order-xl-4">
-            <img class="img-fluid" src="images/menu-item-3.jpg" alt="Item do cardápio 3">
+          <div class="col-12 col-sm-6 col-xl-2 order-sm-4 order-xl-4" data-item="3" data-name="Bomboms" data-price="10" data-img="images/menu-item-3.jpg">
+            <img class="img-fluid" src="images/menu-item-3.jpg" alt="Bomboms">
           </div>
-          <div class="col-12 col-sm-6 col-xl-2 order-sm-5 order-xl-5 point-left">
+          <div class="col-12 col-sm-6 col-xl-2 order-sm-5 order-xl-5 point-left" data-item="3" data-name="Bomboms" data-price="10" data-img="images/menu-item-3.jpg">
             <div class="menu-item-desc">
               <h6>R$10</h6>
               <h2>Bomboms</h2>
@@ -163,10 +170,10 @@ Na Pim Pão, cada cliente importa — e cada detalhe é pensado para que sua exp
 
         <div class="row g-0">
 
-          <div class="col-12 col-sm-6 col-xl-2 order-sm-1 order-xl-1">
-            <img class="img-fluid" src="images/menu-item-4.jpg" alt="Item do cardápio 4">
+          <div class="col-12 col-sm-6 col-xl-2 order-sm-1 order-xl-1" data-item="4" data-name="Caçarola" data-price="10" data-img="images/menu-item-4.jpg">
+            <img class="img-fluid" src="images/menu-item-4.jpg" alt="Caçarola">
           </div>
-          <div class="col-12 col-sm-6 col-xl-2 order-sm-0 order-xl-0 point-right">
+          <div class="col-12 col-sm-6 col-xl-2 order-sm-0 order-xl-0 point-right" data-item="4" data-name="Caçarola" data-price="10" data-img="images/menu-item-4.jpg">
             <div class="menu-item-desc">
               <h6>R$10</h6>
               <h2>Caçarola</h2>
@@ -174,10 +181,10 @@ Na Pim Pão, cada cliente importa — e cada detalhe é pensado para que sua exp
             </div>
           </div>
 
-          <div class="col-12 col-sm-6 col-xl-2 order-sm-2 order-xl-3">
-            <img class="img-fluid" src="images/menu-item-5.jpg" alt="Item do cardápio 5">
+          <div class="col-12 col-sm-6 col-xl-2 order-sm-2 order-xl-3" data-item="5" data-name="Bolo de morango" data-price="10" data-img="images/menu-item-5.jpg">
+            <img class="img-fluid" src="images/menu-item-5.jpg" alt="Bolo de morango">
           </div>
-          <div class="col-12 col-sm-6 col-xl-2 order-sm-4 order-xl-2 point-right">
+          <div class="col-12 col-sm-6 col-xl-2 order-sm-4 order-xl-2 point-right" data-item="5" data-name="Bolo de morango" data-price="10" data-img="images/menu-item-5.jpg">
             <div class="menu-item-desc">
               <h6>R$10</h6>
               <h2>Bolo de morango</h2>
@@ -185,10 +192,10 @@ Na Pim Pão, cada cliente importa — e cada detalhe é pensado para que sua exp
             </div>
           </div>
 
-          <div class="col-12 col-sm-6 col-xl-2 order-sm-5 order-xl-5">
-            <img class="img-fluid" src="images/menu-item-6.jpg" alt="Item do cardápio 6">
+          <div class="col-12 col-sm-6 col-xl-2 order-sm-5 order-xl-5" data-item="6" data-name="Mini Bolos" data-price="10" data-img="images/menu-item-6.jpg">
+            <img class="img-fluid" src="images/menu-item-6.jpg" alt="Mini Bolos">
           </div>
-          <div class="col-12 col-sm-6 col-xl-2 order-sm-4 order-xl-4 point-right">
+          <div class="col-12 col-sm-6 col-xl-2 order-sm-4 order-xl-4 point-right" data-item="6" data-name="Mini Bolos" data-price="10" data-img="images/menu-item-6.jpg">
             <div class="menu-item-desc">
               <h6>R$10</h6>
               <h2>Mini Bolos</h2>
