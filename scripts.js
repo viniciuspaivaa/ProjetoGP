@@ -335,6 +335,15 @@ $(function () {
   // Selecionar categoria com Enter ou Espaço
   $(document).on('keydown', '.menu-cat-btn', function(e){
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+    // Shift+Tab: volta para o tab anterior
+    if (e.key === 'Tab' && e.shiftKey) {
+      e.preventDefault();
+      const $tabs = $('.menu-cat-btn');
+      const idx = $tabs.index(this);
+      let prevIdx = idx - 1;
+      if (prevIdx < 0) prevIdx = $tabs.length - 1;
+      $tabs.eq(prevIdx).focus();
+    }
   });
 
   // ====== Quick view simples (usa attributes de dados) ======
@@ -571,13 +580,17 @@ $(function () {
   function speakText(text) {
     const synth = window.speechSynthesis;
     if (!synth) { return; }
-  // Respeita o estado do leitor de voz
-  if (!isVoiceEnabled()) { return; }
+    // Respeita o estado do leitor de voz
+    if (!isVoiceEnabled()) { return; }
     try { synth.cancel(); } catch {}
     const u = new SpeechSynthesisUtterance(text);
     u.lang = 'pt-BR';
     u.rate = 1;
     u.pitch = 1;
+    // Força a voz pt-BR se disponível
+    const voices = synth.getVoices();
+    const ptVoice = voices.find(v => v.lang === 'pt-BR');
+    if (ptVoice) u.voice = ptVoice;
     try { synth.speak(u); } catch {}
   }
 

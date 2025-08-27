@@ -355,6 +355,28 @@
       utter.lang = 'pt-BR';
       synth.speak(utter);
     }
+
+    // Shift+Tab acessível para todos elementos navegáveis
+    document.addEventListener('DOMContentLoaded', function() {
+      function getFocusableElements() {
+        return Array.from(document.querySelectorAll('a, button, input, [tabindex]:not([tabindex="-1"])'))
+          .filter(el => !el.disabled && el.offsetParent !== null);
+      }
+      document.body.addEventListener('keydown', function(e) {
+        if (e.key === 'Tab' && e.shiftKey) {
+          var focusables = getFocusableElements();
+          var active = document.activeElement;
+          var idx = focusables.indexOf(active);
+          if (idx > 0) {
+            e.preventDefault();
+            focusables[idx - 1].focus();
+          } else if (idx === 0) {
+            e.preventDefault();
+            focusables[focusables.length - 1].focus();
+          }
+        }
+      }, true);
+    });
   </script>
 </body>
 </html>
