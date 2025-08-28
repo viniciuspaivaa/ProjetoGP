@@ -11,6 +11,7 @@
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <style>
+    /* Estilo específico desta página para ajustar cabeçalho e cartões */
     body {
       background: #000;
     }
@@ -95,7 +96,8 @@
     }
 
     /* Bloco de boas-vindas (mesmo texto da home) */
-    .hero-intro { text-align: center; color: #fff; }
+  /* Bloco introdutório reaproveitando a mensagem da home */
+  .hero-intro { text-align: center; color: #fff; }
     .hero-intro h2 {
       font-family: 'Niconne', cursive;
       color: #c69963;
@@ -116,26 +118,30 @@
         
         <p class="lead mb-0">Produtos de padaria como você JAMAIS viu antes!</p>
       </div>
+  <!-- Título principal focável para instruções do leitor de voz -->
   <h1 class="produtos-title" id="produtos-title" tabindex="0">Nossos Deliciosos Produtos!</h1>
       <!-- Menu com abas Doces/Pães + Busca -->
       <div id="menu" class="container">
         <div class="menu-toolbar container mb-4 p-0">
           <div class="menu-toolbar-inner">
             <div class="menu-search-group">
+      <!-- Abas acessíveis (role=tab) para alternar categoria -->
               <div class="menu-cats-inner" role="tablist" aria-label="Categorias de produtos">
                 <button type="button" class="menu-cat-btn active" data-cat="doces" role="tab" aria-selected="true">Doces</button>
                 <button type="button" class="menu-cat-btn" data-cat="paes" role="tab" aria-selected="false">Pães</button>
               </div>
+      <!-- Campo de pesquisa com botão Limpar -->
               <input type="search" id="menu-search" class="menu-search-input" placeholder="Pesquisar produtos..." aria-label="Pesquisar produtos">
               <button type="button" id="menu-clear" class="menu-btn-clear" aria-label="Limpar pesquisa">Limpar</button>
             </div>
           </div>
         </div>
 
-        <!-- Categoria: Doces -->
+    <!-- Categoria: Doces -->
         <div id="menu-doces" class="menu-category active" data-cat="doces">
           <div class="row justify-content-center">
             <div class="col-12 col-md-6 col-lg-4">
+      <!-- Card de produto: contém imagem, título, preço, descrição, datas e ações -->
               <div class="card-produto" data-item="d1" data-name="Bolo de Chocolate" data-price="20" data-img="images/menu-item-2.jpg" id="card-bolo-chocolate">
                 <img src="images/menu-item-2.jpg" alt="Bolo de Chocolate">
                 <h2>Bolo de Chocolate</h2>
@@ -227,7 +233,7 @@
           </div>
         </div>
 
-        <!-- Categoria: Pães -->
+  <!-- Categoria: Pães -->
         <div id="menu-paes" class="menu-category" data-cat="paes" hidden>
           <div class="row justify-content-center">
             <div class="col-12 col-md-6 col-lg-4">
@@ -339,6 +345,7 @@
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="scripts.js"></script>
   <script>
+  // Função local para leitura por voz dos dados do card (independente do controle global)
     function lerCard(cardId) {
       var card = document.getElementById(cardId);
       var texto = '';
@@ -356,6 +363,7 @@
       synth.speak(utter);
     }
 
+  // Acessibilidade: Shift+Tab consistente entre elementos focáveis
     // Shift+Tab acessível para todos elementos navegáveis
     document.addEventListener('DOMContentLoaded', function() {
       function getFocusableElements() {

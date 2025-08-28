@@ -1,6 +1,8 @@
+/* Importação de fontes utilizadas no site */
 @import url('https://fonts.googleapis.com/css?family=Niconne&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Teko:300,400&display=swap');
 
+/* Links padrão do site */
 a {
   color: #fff !important;
 }
@@ -58,6 +60,7 @@ section {
   left: 100%;
 }
 
+/* Hero (cabeçalho com imagem de fundo) */
 .home {
   width: 100%;
   height: 90vh;
@@ -95,6 +98,7 @@ section {
   border: none;
 }
 
+/* Botão hamburguer (mobile) */
 .home .hamburguer-menu {
   position: fixed;
   top: 25px;
@@ -126,6 +130,7 @@ section {
   display: none;
 }
 
+/* Lista de navegação (abre/fecha no mobile) */
 .home .nav-list {
   position: fixed;
   top: 0;
@@ -156,6 +161,7 @@ section {
   text-align: center;
 }
 
+/* Título principal do hero */
 .home .hero-text h2 {
   font-family: "Niconne", cursive;
   color: #c69963;
@@ -169,7 +175,7 @@ section {
   font-size: clamp(1.2rem, 2.2vw, 1.9rem);
 }
 
-/* About */
+/* Seção About */
 .about .section-heading h4 {
   text-transform: uppercase;
   color: #101D2C;
@@ -195,6 +201,7 @@ section {
   background-color: #c69963;
 }
 
+/* Seção de Informações (horário, contato, etc.) */
 .info {
   background-color: #000;  
   overflow-x: hidden;
@@ -259,7 +266,7 @@ hr {
   margin: auto
 }
 
-/* Toolbar de busca do cardápio */
+/* Toolbar de busca do cardápio (categorias + busca + limpar) */
 .menu-toolbar { max-width: 1100px; }
 .menu-toolbar-inner { display:flex; align-items:center; justify-content:center; }
 .menu-search-group { display:flex; gap:12px; align-items:center; }
@@ -277,16 +284,16 @@ hr {
 .menu-btn-clear:hover { filter: brightness(1.05); }
 .menu-btn-clear:active { transform: translateY(1px); }
 
-/* Botões de ação nos cards (opcional: quick view e favorito) */
+/* Botões de ação nos cards (quick view e favorito) */
 .menu-card-actions { display:flex; gap:10px; margin-top:10px; }
 .menu-btn-sm { height: 34px; padding: 0 10px; border-radius: 6px; border:1px solid #c69963; background: transparent; color:#c69963; font-weight:600; cursor:pointer; transition: background .2s, color .2s; }
 .menu-btn-sm:hover { background:#c69963; color:#101D2C; }
 
-/* Hover suave nas imagens do cardápio */
+/* Efeito hover suave nas imagens do cardápio */
 .menu-tasty img.img-fluid { transition: transform .35s ease, box-shadow .35s ease; box-shadow: 0 0 0 rgba(0,0,0,0); }
 .menu-tasty img.img-fluid:hover { transform: scale(1.03); box-shadow: 0 12px 30px rgba(0,0,0,.25); }
 
-/* Categoria Pães: quadrados maiores */
+/* Categoria Pães: imagens maiores com object-fit */
 #menu-paes img.img-fluid {
   width: 100%;
   height: 100%;
@@ -310,7 +317,7 @@ hr {
 #menu-paes img.img-fluid { max-width: 100%; height: auto; display: block; margin: 0 auto; }
 #menu-paes .menu-item-desc { padding: 60px 18px; }
 
-/* Estado de item filtrado (esconde) */
+/* Estado de item filtrado (esconde via classe) */
 .menu-item-hidden { display: none !important; }
 
 /* Abas do cardápio (Doces/Pães) */
@@ -390,8 +397,9 @@ body.vision-acromatico #vision-root input,
 body.vision-acromatico #vision-root select,
 body.vision-acromatico #vision-root button { filter: none !important; }
 
-/* Foco visível para o botão do widget */
+/* Foco visível para o botão do widget de visão */
 #vision-toggle:focus { outline: 3px solid #ffe600; }
+/* Foco para futuros widgets (voz/zoom) pode ser adicionado com IDs correspondentes */
 
 @media (min-width: 576px) {
   .navbar-brand {

@@ -1,5 +1,5 @@
 $(function () {
-  // Garante um contêiner raiz para aplicar filtros sem afetar o body
+  // Garante um contêiner raiz para aplicar filtros/zoom sem afetar o body diretamente
   function ensureVisionRoot() {
     if (document.getElementById('vision-root')) return;
     const root = document.createElement('div');
@@ -13,11 +13,13 @@ $(function () {
 
   ensureVisionRoot();
 
+  // Abre/fecha menu hamburguer no mobile
   $('.hamburguer-menu').on('click', function () {
     $('.toggle').toggleClass('open');
     $('.nav-list').toggleClass('open');
   });
 
+  // Inicialização do AOS (animações ao rolar)
   AOS.init({
     easing: 'ease',
     duration: 1000,
@@ -27,6 +29,7 @@ $(function () {
   });
 
   // Animações no Cardápio (Doces e Pães)
+  // Configura animações específicas dos itens do cardápio
   function initMenuAOS() {
     const $menu = $('#menu');
     if (!$menu.length) return;
@@ -54,6 +57,7 @@ $(function () {
   initMenuAOS();
 
   // Recalcula AOS ao navegar por âncoras (ex.: #home, #about, #menu, #chefs)
+  // Ao mudar a âncora da URL, atualiza AOS e foca títulos relevantes
   window.addEventListener('hashchange', () => {
     try { (AOS.refreshHard ? AOS.refreshHard() : AOS.refresh()); } catch {}
     // Dar foco quando vier das âncoras específicas
@@ -81,6 +85,7 @@ $(function () {
   });
 
   // Também ao carregar a página já com hash
+  // Também ao carregar a página já com hash, focar título adequado
   (function focusFromInitialHash(){
     // Se viemos do botão "Voltar à página inicial", focar diretamente no nav-home
     try {
@@ -110,6 +115,7 @@ $(function () {
     }
   })();
   // Marcar intenção de focar a Home ao clicar no link de retorno
+  // Marca intenção de focar nav-home quando voltar da página de produtos
   $(document).on('click keydown', 'section[aria-label="Voltar à página inicial"] a[href="index.html#home"]', function(e){
     if (e.type === 'click' || e.key === 'Enter' || e.key === ' ') {
       try { sessionStorage.setItem('focus_nav_home', '1'); } catch {}
@@ -117,6 +123,7 @@ $(function () {
   });
 
   // Leitor de tela ao focar o link "Voltar à página inicial"
+  // Leitor de tela ao focar o link "Voltar à página inicial" com instrução de Enter
   $(document).on('focusin', 'section[aria-label="Voltar à página inicial"] a[href="index.html#home"]', function(){
     if (shouldSpeakFor(this)) {
   const msg = 'Voltar à página inicial. Pressione Enter para voltar para a página inicial.';
@@ -125,6 +132,7 @@ $(function () {
     }
   });
 
+  // Shift+Tab no link "Voltar" retorna para a barra de pesquisa
   // Shift+Tab no link "Voltar" retorna para a barra de pesquisa
   $(document).on('keydown', 'section[aria-label="Voltar à página inicial"] a[href="index.html#home"]', function(e){
     if (e.key === 'Tab' && e.shiftKey) {
@@ -277,7 +285,7 @@ $(function () {
     }
   });
 
-  // Alternância de categorias Doces/Pães
+  // Alternância de categorias Doces/Pães (clique)
   $(document).on('click', '.menu-cat-btn', function(){
     const cat = $(this).data('cat');
     $('.menu-cat-btn').removeClass('active').attr('aria-selected','false');
@@ -332,7 +340,7 @@ $(function () {
   }, 250);
   });
 
-  // Selecionar categoria com Enter ou Espaço
+  // Selecionar categoria com Enter ou Espaço (teclado)
   $(document).on('keydown', '.menu-cat-btn', function(e){
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
     // Shift+Tab: volta para o tab anterior
@@ -346,7 +354,7 @@ $(function () {
     }
   });
 
-  // ====== Quick view simples (usa attributes de dados) ======
+  // ====== Quick view simples (usa attributes data-*) ======
   $(document).on('click', '#menu [data-item] img, #menu [data-item] .menu-item-desc h2', function(){
     const $p = $(this).closest('[data-item]');
     const name = $p.data('name');
@@ -371,7 +379,7 @@ $(function () {
     $('body').append(html);
   });
 
-  // Fechar quick view
+  // Fechar quick view (clique no fundo/botão ou tecla ESC)
   $(document).on('click', '.menu-quickview-backdrop, .menu-quickview [data-action="close"]', function(e){
     if (e.target !== this && !$(e.target).is('[data-action="close"]')) return;
     $('.menu-quickview-backdrop').remove();
@@ -389,7 +397,7 @@ $(function () {
     $(this).text('Favorito ✓');
   });
 
-  // ====== Acessibilidade: seletor de modo de visão ======
+  // ====== Acessibilidade: seletor de modo de visão (widget 🌈) ======
   // Modos: 'tricromatico' (padrão), 'dicromatico' (simulado) e 'acromatico' (PB)
   const visionKey = 'vision_mode';
   const modes = [
@@ -468,7 +476,7 @@ $(function () {
     updateDesc();
   }
 
-  // Inicializar com preferência salva ou padrão
+  // Inicializar modo de visão com preferência salva ou padrão
   try {
     let saved = localStorage.getItem(visionKey) || 'tricromatico';
     if (saved === 'normal') saved = 'tricromatico'; // migração de versão anterior
@@ -476,7 +484,7 @@ $(function () {
   } catch { applyVisionMode('tricromatico'); }
   ensureVisionControl();
 
-  // ====== Acessibilidade: Controle do Leitor de Voz (ícone semelhante ao de visão) ======
+  // ====== Acessibilidade: Controle do Leitor de Voz (widget 🔊) ======
   const voiceKey = 'voice_reader_enabled';
   function isVoiceEnabled() {
     try {
@@ -552,6 +560,7 @@ $(function () {
   ensureVoiceControl();
 
   // ====== Acessibilidade: Leitura automática dos Chefs (Tab + Enter) ======
+  // Cria/garante região aria-live para anúncios textuais
   function ensureLiveRegion() {
     let live = document.getElementById('sr-live-region');
     if (!live) {
@@ -570,6 +579,7 @@ $(function () {
     return live;
   }
 
+  // Publica mensagens na região de live para leitores de tela
   function announce(text) {
     const live = ensureLiveRegion();
     // limpa e atualiza para forçar anúncio
@@ -577,6 +587,7 @@ $(function () {
     setTimeout(() => { live.textContent = text; }, 10);
   }
 
+  // Usa SpeechSynthesis (voz) — respeita se o leitor de voz está ativo
   function speakText(text) {
     const synth = window.speechSynthesis;
     if (!synth) { return; }
@@ -597,6 +608,7 @@ $(function () {
   // Controle simples para evitar leituras duplicadas imediatas no mesmo elemento
   let lastSpokenEl = null;
   let lastSpokenAt = 0;
+  // Evita repetições rápidas do mesmo elemento
   function shouldSpeakFor(el) {
     const now = Date.now();
     if (lastSpokenEl === el && (now - lastSpokenAt) < 800) return false;
@@ -606,6 +618,7 @@ $(function () {
   }
 
   // Helpers de leitura por seção
+  // Monta leitura concatenada da seção de Chefs
   function readChefsSection() {
     const parts = [];
     $('#chefs .card-body').each(function(){
@@ -621,6 +634,7 @@ $(function () {
   }
 
   // ====== Leitura automática: itens do menu de navegação ao receber foco ======
+  // Lê itens do menu de navegação ao focar
   function readNavItem(el) {
     const label = (el?.textContent || '').trim();
     if (!label) return;
@@ -635,6 +649,7 @@ $(function () {
   });
 
   // Após selecionar categoria, enviar o próximo Tab para o primeiro produto
+  // Foca o primeiro botão "Ler texto" da categoria visível
   function focusFirstProductBtn(cat) {
     const containerId = cat === 'paes' ? '#menu-paes' : '#menu-doces';
     const $container = $(containerId);
@@ -724,6 +739,7 @@ $(function () {
     }
   });
 
+  // Lê a seção "Nossa História"
   function readAboutSection() {
     const parts = ['Nossa História.'];
     const desc = ($('#about').find('p').first().text() || '').trim();
@@ -732,6 +748,7 @@ $(function () {
     if (text) { announce(text); speakText(text); }
   }
 
+  // Lê a seção de horário de funcionamento
   function readInfoHours() {
     const title = (document.getElementById('info-hours-title')?.textContent || 'Horário de Funcionamento').trim();
     const hours = (document.getElementById('info-hours-text')?.textContent || '').trim();
@@ -739,6 +756,7 @@ $(function () {
     if (text) { announce(text); speakText(text); }
   }
 
+  // Lê a seção de contato
   function readInfoContact() {
     const title = (document.getElementById('info-contact-title')?.textContent || 'Entre em Contato').trim();
     const phone = (document.getElementById('contact-phone')?.textContent || '').trim();
@@ -747,6 +765,7 @@ $(function () {
     if (text) { announce(text); speakText(text); }
   }
 
+  // Lê o título da página de produtos com instruções
   function readProdutosTitle() {
     const title = (document.getElementById('produtos-title')?.textContent || '').trim();
     if (!title) return;
@@ -756,6 +775,7 @@ $(function () {
   }
 
   // ====== Produtos: utilitários de foco e leitura ======
+  // Utilitários de categoria/itens
   function getActiveCategoryId() {
     if ($('#menu-paes').length && !$('#menu-paes').is('[hidden]')) return 'paes';
     return 'doces';
@@ -845,7 +865,7 @@ $(function () {
     }
   });
 
-  // ====== Acessibilidade: Enter no link "Cardápio" do cabeçalho vai para Produtos ======
+  // ====== Atalho: Enter no link "Cardápio" do cabeçalho vai para Produtos ======
   // Mantemos o clique de mouse rolando para #menu, mas se o usuário navegar por foco (Tab)
   // e pressionar Enter, redirecionamos para a página de produtos.
   $(document).on('keydown', 'a.nav-link[href="#menu"]', function(e){
@@ -855,7 +875,7 @@ $(function () {
     }
   });
 
-  // ====== Acessibilidade: preservar e restaurar foco com Shift+Tab ======
+  // ====== Preservar e restaurar foco com Shift+Tab ======
   let lastNavLinkId = null;
   // Ao clicar em Nossos horários/Contato, marca origem
   $(document).on('click keydown', '#nav-info-hours, #nav-info-contact', function(e){
